@@ -10,7 +10,9 @@ from app.log import log
 from app.pipeline.normalize import norm_invoice_number
 from app.pipeline.types import PageText, Segment
 
-INV_RE = re.compile(r"(?i)\b(?:invoice|inv|bill)\s*(?:no\.?|number|num|#|id)?\s*[:#.]?\s*([A-Z0-9][A-Z0-9\-/]{2,24})")
+INV_RE = re.compile(
+    r"(?i)\b(?:invoice|inv|bill)[ \t]*(?:no\.?|number|num|#|id)?[ \t]*[:#.]?[ \t]*([A-Z0-9][A-Z0-9\-/]{2,24})"
+)
 PAGE_RE = re.compile(r"(?i)\bpage\s+(\d{1,4})\s*(?:of|/)\s*(\d{1,4})\b")
 
 HEADER_SHARE = 0.4

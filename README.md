@@ -32,6 +32,35 @@ make up                       # or: docker compose up -d --build
 - API docs (OpenAPI): **http://localhost:8000/docs** (send the header `X-API-Key: <API_KEY>`)
 - Try it with the sample files in `datasets/eval/synthetic/`. For example, upload the whole `crosscheck/` folder, then open **Cross-check**.
 
+### Without Docker
+
+Docker is the supported route. If you cannot use it, everything also runs from the command line. The Linux steps were run for this project; the macOS Homebrew commands follow the same steps but were not run on a Mac.
+
+```bash
+# 1. Services and tools (macOS shown; on Linux use apt: postgresql-16 postgresql-16-pgvector redis-server tesseract-ocr)
+brew install postgresql@16 pgvector redis tesseract python@3.12 node
+brew services start postgresql@16 && brew services start redis
+
+# 2. Database
+createuser docintel && createdb docintel -O docintel
+psql -d docintel -c "ALTER USER docintel PASSWORD 'docintel'; CREATE EXTENSION IF NOT EXISTS vector; CREATE EXTENSION IF NOT EXISTS pg_trgm;"
+
+# 3. Backend (set API_KEY and LLM_API_KEY in .env first: cp .env.example .env)
+cd backend && python3.12 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt
+set -a && . ../.env && set +a
+export DATABASE_URL=postgresql+psycopg://docintel:docintel@127.0.0.1:5432/docintel
+export REDIS_URL=redis://127.0.0.1:6379/0 STORAGE_DIR=$PWD/../storage EMBEDDING_CACHE_DIR=$PWD/../models
+alembic upgrade head
+uvicorn app.main:app --port 8000 &
+celery -A app.worker worker -Q documents --concurrency=2 --loglevel=INFO &
+
+# 4. Frontend
+cd ../frontend && cp .env.local.example .env.local   # set API_KEY to the same value as in .env
+npm install && npm run dev                           # http://localhost:3000
+```
+
+The embedding model (about 130 MB) downloads on first use.
+
 Other commands: `make test`, `make lint`, `make logs`, `make data` (public labelled set), `make eval` (evaluation), `make help`.
 
 Use another LLM by changing three env vars. For example, Groq: `LLM_BASE_URL=https://api.groq.com/openai/v1`, `LLM_MODEL=openai/gpt-oss-120b`.

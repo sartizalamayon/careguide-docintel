@@ -135,3 +135,25 @@ def test_real_pdf_page_texts_segment_like_the_ground_truth(manifest, syn_file):
         with pymupdf.open(syn_file(rel)) as doc:
             pages = [PageText(n, page.get_text(), "digital") for n, page in enumerate(doc, 1)]
         assert [(s.page_start, s.page_end) for s in segment_pages(pages)] == ranges
+
+
+def test_u18_invoice_title_does_not_pick_up_the_street_number_on_the_next_line():
+    first = (
+        "Figueroa and Sons                              INVOICE\n"
+        "13389 Anna Stravenue, Robinsonshire, KY 01352\n"
+        "Customer:                                      Invoice Number:    PERF-1000\n"
+        "Brian Yang                                     Issue Date:   09/17/2025\n"
+        "1.  Nitrile gloves   40   11.93   477.20\n"
+        "2.  Medical billing   20   864.11   17,282.20\n"
+        "3.  Caregiver hours   1   21.06   21.06\n"
+        "Page 1 of 2"
+    )
+    second = (
+        "Figueroa and Sons  - Invoice Number:  PERF-1000   (continued)\n"
+        "17.  Nitrile gloves   8   8.22   65.76\n"
+        "Total 18,647.37\nPage 2 of 2"
+    )
+    assert find_invoice_number(first) == "PERF1000"
+    pages = [PageText(page_no=1, text=first, method="digital"), PageText(page_no=2, text=second, method="digital")]
+    segments = segment_pages(pages)
+    assert [(s.page_start, s.page_end) for s in segments] == [(1, 2)]
