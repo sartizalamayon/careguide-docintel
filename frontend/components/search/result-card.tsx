@@ -28,7 +28,7 @@ export function ResultCard({ hit }: { hit: SearchHit }) {
       </div>
       {hit.snippet && <Snippet text={hit.snippet} />}
       <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-        <span>Score {hit.score.toFixed(3)}</span>
+        {hit.matched_by.length > 0 && <span>Score {hit.score.toFixed(3)}</span>}
         {hit.matched_by.map((m) => <Badge key={m} variant="outline">{m}</Badge>)}
         <IssueBadges issueCount={hit.issue_count} errorCount={hit.error_count} />
         <Link href={`/documents/${hit.document_id}`} className="ml-auto truncate hover:underline">{hit.filename}</Link>

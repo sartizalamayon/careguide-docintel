@@ -48,6 +48,14 @@ Use another LLM by changing three env vars. For example, Groq: `LLM_BASE_URL=htt
 
 More: [Architecture and decisions](docs/ARCHITECTURE.md) · [Database schema](docs/schema.sql) · [Full specification](docs/SPEC.md) · [API reference](http://localhost:8000/docs)
 
+## Screenshots
+
+| Dashboard | Review queue |
+|---|---|
+| ![Dashboard](docs/screenshots/dashboard.png) | ![Review queue](docs/screenshots/review.png) |
+| **Hybrid search** | **Cross-check of two documents** |
+| ![Search](docs/screenshots/search.png) | ![Cross-check](docs/screenshots/compare.png) |
+
 ## Results
 
 Measured end to end through the API on 160 labelled files (81 synthetic invoices covering every format and fault type + 100 public Katana ML invoice images, 26 of them degraded). Full report: [docs/EVALUATION.md](docs/EVALUATION.md).
