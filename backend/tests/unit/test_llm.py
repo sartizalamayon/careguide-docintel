@@ -210,7 +210,7 @@ def test_u26_same_input_twice_is_served_from_the_cache(db, settings):
     assert second_usage["cached"] is True
     row = db.scalar(select(LlmCall))
     key = cache_key(settings.LLM_MODEL, "extract", EXTRACT_SYSTEM, "<document>\nTotal 10.00\n</document>")
-    assert (row.cache_key, row.prompt_version, row.input_tokens, row.output_tokens) == (key, "extract-v1", 11, 7)
+    assert (row.cache_key, row.prompt_version, row.input_tokens, row.output_tokens) == (key, "extract-v2", 11, 7)
 
 
 def test_cache_disabled_calls_again_and_still_logs_the_call(db, settings, monkeypatch):

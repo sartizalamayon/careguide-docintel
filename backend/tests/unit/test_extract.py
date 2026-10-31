@@ -12,7 +12,14 @@ from conftest import REPO, FakeLLM, fake_from_gt
 
 from app.errors import LLM_BAD_OUTPUT, ProcessingError
 from app.pipeline import llm
-from app.pipeline.extract import extract_segment, extraction_schema, map_columns
+from app.pipeline.extract import (
+    ExtractionResult,
+    _build_invoice,
+    extract_segment,
+    extraction_schema,
+    map_columns,
+    resolve_ambiguous_date,
+)
 from app.pipeline.prompts import COLMAP_SYSTEM, EXTRACT_SYSTEM, REPAIR_SYSTEM
 from app.pipeline.types import SCALAR_FIELDS, PageText, Segment
 
@@ -65,7 +72,7 @@ def test_u21_ground_truth_answer_is_fully_grounded(monkeypatch, gt):
     for name in SCALAR_FIELDS:
         assert invoice.field_meta[name] == {"confidence": 0.93, "grounded": True, "source": "llm"}
     assert (invoice.page_start, invoice.page_end, invoice.raw_text) == (1, 1, segment.text)
-    assert (invoice.extraction_method, invoice.prompt_version) == ("llm", "extract-v1")
+    assert (invoice.extraction_method, invoice.prompt_version) == ("llm", "extract-v2")
     assert invoice.llm_model
     assert fake.calls == [("extract", f"<document>\n{segment.text}\n</document>")]
 
@@ -246,5 +253,55 @@ def test_prompts_are_verbatim_copies_of_the_spec():
         start = spec.index("```\n", spec.index(title)) + 4
         return spec[start : spec.index("\n```", start)]
 
-    assert block("**EXTRACT_SYSTEM (extract-v1)**") == EXTRACT_SYSTEM
+    assert block("**EXTRACT_SYSTEM (extract-v2)**") == EXTRACT_SYSTEM
     assert block("**COLMAP_SYSTEM (colmap-v1)**") == COLMAP_SYSTEM
+
+
+@pytest.mark.parametrize(
+    ("llm_value", "currency", "printed", "expected"),
+    [
+        (dt.date(2016, 4, 7), "USD", "Date of issue: 07/04/2016", dt.date(2016, 7, 4)),  # model read day first
+        (dt.date(2016, 7, 4), "USD", "Date of issue: 07/04/2016", dt.date(2016, 7, 4)),  # already month first
+        (dt.date(2016, 7, 4), "EUR", "Date of issue: 07/04/2016", dt.date(2016, 4, 7)),  # day first outside USD
+        (dt.date(2016, 7, 4), None, "Datum: 07.04.2016", dt.date(2016, 4, 7)),
+    ],
+)
+def test_ambiguous_numeric_date_follows_the_currency_rule(llm_value, currency, printed, expected):
+    assert resolve_ambiguous_date(llm_value, currency, printed) == expected
+
+
+@pytest.mark.parametrize(
+    ("value", "text"),
+    [
+        (dt.date(2016, 7, 24), "Date: 07/24/2016"),  # day > 12: not ambiguous
+        (dt.date(2016, 5, 5), "Date: 05/05/2016"),  # both readings are the same day
+        (dt.date(2016, 7, 4), "Date: July 4, 2016"),  # not printed as a numeric date
+        (dt.date(2016, 7, 4), "Issued 07/04/2016, due 04/07/2016"),  # two different candidates: leave it
+    ],
+)
+def test_unambiguous_or_unclear_dates_are_left_alone(value, text):
+    assert resolve_ambiguous_date(value, "USD", text) is None
+
+
+def test_build_invoice_swaps_an_ambiguous_usd_date_and_caps_confidence():
+    segment = Segment(page_start=1, page_end=1, text="Invoice no: 58478169\nDate of issue: 07/04/2016\nTotal $ 10.00")
+    result = ExtractionResult.model_validate(
+        {
+            "is_invoice": True,
+            "invoice_number": {"value": "58478169", "confidence": 0.95},
+            "invoice_date": {"value": "2016-04-07", "confidence": 0.9},
+            "supplier_name": {"value": None, "confidence": 0},
+            "customer_name": {"value": None, "confidence": 0},
+            "currency": {"value": "USD", "confidence": 0.7},
+            "subtotal": {"value": None, "confidence": 0},
+            "tax": {"value": None, "confidence": 0},
+            "total": {"value": 10.0, "confidence": 0.9},
+            "line_items": [],
+        }
+    )
+
+    invoice = _build_invoice(segment, result, None, "test-model")
+
+    assert invoice.values["invoice_date"] == dt.date(2016, 7, 4)
+    assert invoice.field_meta["invoice_date"]["confidence"] == 0.5
+    assert invoice.field_meta["invoice_date"]["grounded"] is True

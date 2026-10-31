@@ -112,7 +112,7 @@ class FakeLLM:
 
 
 def fake_from_gt(gt_invoice: dict, confidence: float = 0.95) -> dict:
-    """Build a perfect extract-v1 response from a manifest ground-truth invoice."""
+    """Build a perfect extract-v2 response from a manifest ground-truth invoice."""
 
     def f(v, num=False):
         if v is None:

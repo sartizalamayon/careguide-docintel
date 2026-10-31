@@ -182,6 +182,31 @@ def _normalise(name: str, raw: str | float | None) -> tuple[Any, dict[str, bool]
     return text, {}
 
 
+NUMERIC_DATE_RE = re.compile(r"\b(\d{1,2})[/.\-](\d{1,2})[/.\-](\d{4})\b")
+AMBIGUOUS_DATE_CONFIDENCE = 0.5
+
+
+def resolve_ambiguous_date(value: date, currency: str | None, text: str) -> date | None:
+    """Apply the prompt's rule for ambiguous numeric dates in code, because models do not follow it reliably.
+
+    When the date is printed as a/b/yyyy with both parts <= 12 (e.g. 07/04/2016), the reading is month first
+    for USD and day first otherwise. Returns the resolved date, or None when the printed date is not ambiguous
+    or the text holds more than one candidate. The result is always one of the two readings of the printed text.
+    """
+    if value.day > 12 or value.day == value.month:
+        return None
+    printed = {
+        (int(a), int(b))
+        for a, b, year in NUMERIC_DATE_RE.findall(text)
+        if int(year) == value.year and {int(a), int(b)} == {value.day, value.month}
+    }
+    if len(printed) != 1:
+        return None
+    first, second = printed.pop()
+    month, day = (first, second) if currency == "USD" else (second, first)
+    return date(value.year, month, day)
+
+
 @dataclass(frozen=True)
 class Evidence:
     """The segment text in the forms the grounding rules compare against (SPEC §6.8 step 3)."""
@@ -262,7 +287,22 @@ def _build_invoice(
             "source": "llm",
             **flags,
         }
+    _apply_date_rule(invoice, segment.text)
     return invoice
+
+
+def _apply_date_rule(invoice: ExtractedInvoice, text: str) -> None:
+    value = invoice.values.get("invoice_date")
+    if not isinstance(value, date):
+        return
+    resolved = resolve_ambiguous_date(value, invoice.values.get("currency"), text)
+    if resolved is None:
+        return
+    meta = invoice.field_meta["invoice_date"]
+    meta["confidence"] = min(meta["confidence"], AMBIGUOUS_DATE_CONFIDENCE)
+    if resolved != value:
+        log.info("ambiguous_date_resolved", llm_value=value.isoformat(), resolved=resolved.isoformat())
+        invoice.values["invoice_date"] = resolved
 
 
 def extract_segment(
