@@ -1,4 +1,5 @@
 """Application settings, read from environment variables (see .env.example and docs/SPEC.md §4)."""
+
 from functools import lru_cache
 
 from pydantic import Field

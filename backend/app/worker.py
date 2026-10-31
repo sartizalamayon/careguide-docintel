@@ -1,4 +1,5 @@
 """Celery application. Tasks are defined here and call app.pipeline.orchestrator (SPEC §6.10)."""
+
 from celery import Celery
 
 from app.config import get_settings
@@ -30,5 +31,7 @@ def ping() -> str:
     return "pong"
 
 
-# TODO(M3): @celery_app.task(bind=True, name="process_document", max_retries=3)
-#           def process_document(self, document_id: str, from_stage: str = "parse") -> None: ...
+@celery_app.task(name="process_document", bind=True, max_retries=3)
+def process_document(self, document_id: str, from_stage: str = "parse") -> None:  # noqa: ARG001
+    """Background processing entry point. The pipeline is wired in M3 (SPEC §6.10)."""
+    return None

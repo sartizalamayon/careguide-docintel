@@ -1,16 +1,40 @@
 """Shared test fixtures.
 
-Tests run against the real Postgres + Redis from docker compose with CELERY_TASK_ALWAYS_EAGER=true
-(`make test`). The LLM is always replaced by FakeLLM; tests never call a real provider.
+Tests run against the real Postgres + Redis (docker compose in `make test`, or any local instance via env vars)
+with CELERY_TASK_ALWAYS_EAGER=true. The LLM is always replaced by FakeLLM; tests never call a real provider.
 """
+
 import json
+import os
+import tempfile
 from pathlib import Path
 
 import pytest
 
 REPO = Path(__file__).resolve().parents[2]
+BACKEND = REPO / "backend"
 EVAL = REPO / "datasets" / "eval"
 SYN = EVAL / "synthetic"
+
+# Must be set before anything imports app.config (settings are cached on first use).
+os.environ.setdefault("API_KEY", "test-api-key-0123456789")
+os.environ.setdefault("DATABASE_URL", "postgresql+psycopg://docintel:docintel@db:5432/docintel")
+os.environ.setdefault("REDIS_URL", "redis://redis:6379/0")
+os.environ.setdefault("CELERY_TASK_ALWAYS_EAGER", "true")
+os.environ.setdefault("STORAGE_DIR", tempfile.mkdtemp(prefix="docintel-test-"))
+os.environ.setdefault("EMBEDDING_CACHE_DIR", "/models")
+
+TABLES = [
+    "llm_calls",
+    "cross_checks",
+    "processing_events",
+    "corrections",
+    "validation_issues",
+    "line_items",
+    "invoices",
+    "document_pages",
+    "documents",
+]
 
 
 def load_manifest(name: str = "manifest_synthetic.jsonl") -> dict[str, dict]:
@@ -29,12 +53,52 @@ def syn_file():
     return lambda rel: SYN / rel
 
 
+@pytest.fixture(scope="session")
+def migrated_db():
+    """Apply the Alembic migration once per test session (schema.sql via migration 0001)."""
+    from alembic import command
+    from alembic.config import Config
+
+    cfg = Config(str(BACKEND / "alembic.ini"))
+    cfg.set_main_option("script_location", str(BACKEND / "migrations"))
+    command.upgrade(cfg, "head")
+    return True
+
+
+@pytest.fixture
+def db(migrated_db):
+    """A clean database session: every table is truncated before the test."""
+    from sqlalchemy import text
+
+    from app.db import SessionLocal
+
+    session = SessionLocal()
+    session.execute(text(f"TRUNCATE {', '.join(TABLES)} RESTART IDENTITY CASCADE"))
+    session.commit()
+    try:
+        yield session
+    finally:
+        session.rollback()
+        session.close()
+
+
+@pytest.fixture
+def client(db):
+    """FastAPI TestClient that sends the API key by default. Depends on a clean database."""
+    from fastapi.testclient import TestClient
+
+    from app.config import get_settings
+    from app.main import app
+
+    with TestClient(app, headers={"X-API-Key": get_settings().API_KEY}) as c:
+        yield c
+
+
 class FakeLLM:
-    """Stand-in for app.pipeline.llm client.
+    """Stand-in for the llm client (app.pipeline.llm).
 
     responses: callable(purpose, system, user) -> dict, or a dict keyed by purpose.
-    Records every call in .calls so tests can assert on caching/retries.
-    TODO(M4): match the real client's interface (complete_json) once llm.py exists.
+    Records every call in .calls so tests can assert on caching and retries.
     """
 
     def __init__(self, responses):
@@ -49,6 +113,7 @@ class FakeLLM:
 
 def fake_from_gt(gt_invoice: dict, confidence: float = 0.95) -> dict:
     """Build a perfect extract-v1 response from a manifest ground-truth invoice."""
+
     def f(v, num=False):
         if v is None:
             return {"value": None, "confidence": 0}
@@ -65,8 +130,10 @@ def fake_from_gt(gt_invoice: dict, confidence: float = 0.95) -> dict:
         "tax": f(gt_invoice["tax"], num=True),
         "total": f(gt_invoice["total"], num=True),
         "line_items": [
-            {k: (float(i[k]) if k != "description" and i[k] is not None else i[k])
-             for k in ("description", "quantity", "unit_price", "amount")}
+            {
+                k: (float(i[k]) if k != "description" and i[k] is not None else i[k])
+                for k in ("description", "quantity", "unit_price", "amount")
+            }
             for i in gt_invoice["line_items"]
         ],
     }

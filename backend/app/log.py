@@ -1,4 +1,5 @@
 """Structured JSON logging. Never log document text or secrets."""
+
 import logging
 import sys
 

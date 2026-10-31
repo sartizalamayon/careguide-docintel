@@ -1,4 +1,5 @@
 """Database engine and session helpers (sync SQLAlchemy 2.0)."""
+
 from collections.abc import Iterator
 from contextlib import contextmanager
 
