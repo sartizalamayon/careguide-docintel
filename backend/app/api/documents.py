@@ -5,7 +5,7 @@ from __future__ import annotations
 import uuid
 from collections.abc import Sequence
 
-from fastapi import APIRouter, Depends, File, Query, UploadFile
+from fastapi import APIRouter, Depends, File, Query, Response, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, selectinload
@@ -21,23 +21,29 @@ from app.errors import (
     UNSUPPORTED_FILE_TYPE,
     UPLOAD_MESSAGES,
     ApiError,
+    ProcessingError,
 )
 from app.log import log
-from app.models import Document, Invoice, ProcessingEvent, ValidationIssue
+from app.models import Document, DocumentPage, Invoice, ProcessingEvent, ValidationIssue
+from app.pipeline import images, pdf
 from app.pipeline.filetypes import family_of, file_type_for, mime_of, sanitize_filename, sniff
+from app.pipeline.orchestrator import default_from_stage
 from app.schemas import (
     DocumentDetail,
     DocumentStatus,
     DocumentSummary,
     EventOut,
     Page,
+    PageOut,
     RejectedFile,
+    ReprocessFailedRequest,
+    ReprocessRequest,
     UploadedDocument,
     UploadResponse,
 )
 from app.security import require_api_key
 from app.storage import FileTooLargeError, discard, move_into_storage, open_path, stream_to_temp
-from app.worker import process_document
+from app.worker import process_document as enqueue_document
 
 router = APIRouter(prefix="/documents", tags=["documents"], dependencies=[Depends(require_api_key)])
 
@@ -161,7 +167,7 @@ def upload_documents(
 
     for doc in new_docs:
         try:
-            process_document.delay(str(doc.id))
+            enqueue_document.delay(str(doc.id))
         except Exception as e:  # noqa: BLE001 - broker problems must not lose the upload
             log.error("enqueue_failed", document_id=str(doc.id), error=type(e).__name__)
             doc.status = "failed"
@@ -265,3 +271,107 @@ def get_document_events(document_id: uuid.UUID, db: Session = Depends(get_db)) -
         select(ProcessingEvent).where(ProcessingEvent.document_id == document_id).order_by(ProcessingEvent.id)
     ).all()
     return [EventOut.model_validate(e) for e in events]
+
+
+PAGE_IMAGE_CACHE = "private, max-age=3600"
+
+
+@router.get("/{document_id}/pages", summary="Extracted text per page or sheet", response_model=list[PageOut])
+def get_document_pages(
+    document_id: uuid.UUID,
+    from_: int = Query(1, alias="from", ge=1),
+    to: int = Query(50, ge=1),
+    db: Session = Depends(get_db),
+) -> list[PageOut]:
+    get_document_or_404(db, document_id)
+    rows = db.scalars(
+        select(DocumentPage)
+        .where(DocumentPage.document_id == document_id, DocumentPage.page_no.between(from_, to))
+        .order_by(DocumentPage.page_no)
+    ).all()
+    return [PageOut.model_validate(row) for row in rows]
+
+
+@router.get(
+    "/{document_id}/pages/{page_no}/image",
+    summary="PNG render of one page or frame",
+    responses={200: {"content": {"image/png": {}}}},
+)
+def get_page_image(
+    document_id: uuid.UUID,
+    page_no: int,
+    dpi: int = Query(110, ge=36, le=300),
+    db: Session = Depends(get_db),
+) -> Response:
+    doc = get_document_or_404(db, document_id)
+    if doc.family == "spreadsheet":
+        raise ApiError(404, "NOT_FOUND", "Spreadsheets have no page images. Use the page text instead.")
+    exists = db.scalar(
+        select(DocumentPage.id).where(DocumentPage.document_id == document_id, DocumentPage.page_no == page_no)
+    )
+    if exists is None:
+        raise ApiError(404, "NOT_FOUND", "Page not found.")
+    path = open_path(doc.storage_path)
+    try:
+        if doc.file_type == "pdf":
+            png = pdf.render_page_png(path, page_no, dpi)
+        else:
+            png = images.render_frame_png(path, page_no, dpi)
+    except IndexError as error:
+        raise ApiError(404, "NOT_FOUND", "Page not found.") from error
+    except ProcessingError as error:
+        raise ApiError(422, error.code, error.message) from error
+    return Response(content=png, media_type="image/png", headers={"Cache-Control": PAGE_IMAGE_CACHE})
+
+
+def _enqueue(db: Session, doc: Document, from_stage: str) -> None:
+    doc.status = "queued"
+    doc.stage = None
+    doc.progress = 0
+    doc.error_code = None
+    doc.error_message = None
+    db.add(ProcessingEvent(document_id=doc.id, event="reprocess_requested", data={"from_stage": from_stage}))
+    db.commit()
+    try:
+        enqueue_document.delay(str(doc.id), from_stage)
+    except Exception as error:  # noqa: BLE001 - the document stays failed and can be retried
+        log.error("enqueue_failed", document_id=str(doc.id), error=type(error).__name__)
+        doc.status = "failed"
+        doc.error_code = INTERNAL_ERROR
+        doc.error_message = "Could not queue the file for processing. Use Reprocess to retry."
+        db.commit()
+
+
+def _stage_for(db: Session, doc: Document, requested: str | None) -> str:
+    if doc.family == "spreadsheet":
+        return "parse"
+    has_pages = db.scalar(select(func.count()).select_from(DocumentPage).where(DocumentPage.document_id == doc.id)) > 0
+    if requested is not None:
+        return requested if has_pages else "parse"
+    return default_from_stage(doc.error_code, has_pages)
+
+
+@router.post(
+    "/{document_id}/reprocess", status_code=202, summary="Process the document again", response_model=DocumentSummary
+)
+def reprocess_document(
+    document_id: uuid.UUID,
+    body: ReprocessRequest | None = None,
+    db: Session = Depends(get_db),
+) -> DocumentSummary:
+    doc = get_document_or_404(db, document_id)
+    if doc.status in ("queued", "processing"):
+        raise ApiError(409, "CONFLICT", "The document is already being processed.")
+    _enqueue(db, doc, _stage_for(db, doc, body.from_stage if body else None))
+    return summarize(db, [doc])[0]
+
+
+@router.post("/reprocess-failed", status_code=202, summary="Process every failed document again")
+def reprocess_failed(body: ReprocessFailedRequest | None = None, db: Session = Depends(get_db)) -> dict[str, int]:
+    stmt = select(Document).where(Document.status == "failed")
+    if body and body.error_code:
+        stmt = stmt.where(Document.error_code == body.error_code)
+    docs = db.scalars(stmt.order_by(Document.created_at)).all()
+    for doc in docs:
+        _enqueue(db, doc, _stage_for(db, doc, None))
+    return {"requeued": len(docs)}

@@ -27,11 +27,16 @@ def page_params(page: int = Query(1, ge=1), page_size: int = Query(20, ge=1, le=
     return PageParams(page=page, page_size=page_size)
 
 
-def paginate(db: Session, stmt: Any, params: PageParams) -> tuple[list[Any], int]:
-    """Run a select() with LIMIT/OFFSET and return (rows, total count)."""
+def paginate(db: Session, stmt: Any, params: PageParams, *, scalars: bool = True) -> tuple[list[Any], int]:
+    """Run a select() with LIMIT/OFFSET and return (rows, total count).
+
+    scalars=True returns the first column of each row; scalars=False returns full row tuples.
+    """
     total = db.scalar(select(func.count()).select_from(stmt.order_by(None).subquery())) or 0
-    rows = list(db.scalars(stmt.limit(params.page_size).offset(params.offset)).all())
-    return rows, total
+    limited = stmt.limit(params.page_size).offset(params.offset)
+    if scalars:
+        return list(db.scalars(limited).all()), total
+    return [tuple(row) for row in db.execute(limited).all()], total
 
 
 def invoice_summary(invoice: Invoice, filename: str) -> InvoiceSummary:
