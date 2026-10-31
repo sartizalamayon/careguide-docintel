@@ -1,0 +1,1026 @@
+{
+  "run": {
+    "api": "http://localhost:8000",
+    "manifests": [
+      "eval/manifest_reduced.jsonl"
+    ],
+    "started_at": "2026-10-31T17:13:34+00:00",
+    "finished_at": "2026-10-31T17:14:08+00:00",
+    "documents": 20,
+    "not_uploaded": 0
+  },
+  "extraction": {
+    "all": {
+      "documents": 12,
+      "field_accuracy": {
+        "invoice_number": {
+          "correct": 35,
+          "total": 35,
+          "accuracy": 1.0
+        },
+        "invoice_date": {
+          "correct": 35,
+          "total": 35,
+          "accuracy": 1.0
+        },
+        "supplier_name": {
+          "correct": 35,
+          "total": 35,
+          "accuracy": 1.0
+        },
+        "customer_name": {
+          "correct": 35,
+          "total": 35,
+          "accuracy": 1.0
+        },
+        "currency": {
+          "correct": 35,
+          "total": 35,
+          "accuracy": 1.0
+        },
+        "subtotal": {
+          "correct": 35,
+          "total": 35,
+          "accuracy": 1.0
+        },
+        "tax": {
+          "correct": 35,
+          "total": 35,
+          "accuracy": 1.0
+        },
+        "total": {
+          "correct": 35,
+          "total": 35,
+          "accuracy": 1.0
+        }
+      },
+      "micro_accuracy": 1.0,
+      "document_exact_match": {
+        "correct": 12,
+        "rate": 1.0
+      },
+      "line_items": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 118,
+        "fp": 0,
+        "fn": 0
+      },
+      "hallucination": {
+        "count": 0,
+        "null_gt_fields": 1,
+        "rate": 0.0
+      },
+      "invoices": {
+        "expected": 35,
+        "predicted": 35,
+        "matched": 35,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    "katanaml": {
+      "documents": 2,
+      "field_accuracy": {
+        "invoice_number": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "invoice_date": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "supplier_name": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "customer_name": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "currency": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "subtotal": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "tax": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "total": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        }
+      },
+      "micro_accuracy": 1.0,
+      "document_exact_match": {
+        "correct": 2,
+        "rate": 1.0
+      },
+      "line_items": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 7,
+        "fp": 0,
+        "fn": 0
+      },
+      "hallucination": {
+        "count": 0,
+        "null_gt_fields": 0,
+        "rate": null
+      },
+      "invoices": {
+        "expected": 2,
+        "predicted": 2,
+        "matched": 2,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    "katanaml/image_clean": {
+      "documents": 2,
+      "field_accuracy": {
+        "invoice_number": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "invoice_date": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "supplier_name": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "customer_name": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "currency": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "subtotal": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "tax": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "total": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        }
+      },
+      "micro_accuracy": 1.0,
+      "document_exact_match": {
+        "correct": 2,
+        "rate": 1.0
+      },
+      "line_items": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 7,
+        "fp": 0,
+        "fn": 0
+      },
+      "hallucination": {
+        "count": 0,
+        "null_gt_fields": 0,
+        "rate": null
+      },
+      "invoices": {
+        "expected": 2,
+        "predicted": 2,
+        "matched": 2,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    "synthetic": {
+      "documents": 10,
+      "field_accuracy": {
+        "invoice_number": {
+          "correct": 33,
+          "total": 33,
+          "accuracy": 1.0
+        },
+        "invoice_date": {
+          "correct": 33,
+          "total": 33,
+          "accuracy": 1.0
+        },
+        "supplier_name": {
+          "correct": 33,
+          "total": 33,
+          "accuracy": 1.0
+        },
+        "customer_name": {
+          "correct": 33,
+          "total": 33,
+          "accuracy": 1.0
+        },
+        "currency": {
+          "correct": 33,
+          "total": 33,
+          "accuracy": 1.0
+        },
+        "subtotal": {
+          "correct": 33,
+          "total": 33,
+          "accuracy": 1.0
+        },
+        "tax": {
+          "correct": 33,
+          "total": 33,
+          "accuracy": 1.0
+        },
+        "total": {
+          "correct": 33,
+          "total": 33,
+          "accuracy": 1.0
+        }
+      },
+      "micro_accuracy": 1.0,
+      "document_exact_match": {
+        "correct": 10,
+        "rate": 1.0
+      },
+      "line_items": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 111,
+        "fp": 0,
+        "fn": 0
+      },
+      "hallucination": {
+        "count": 0,
+        "null_gt_fields": 1,
+        "rate": 0.0
+      },
+      "invoices": {
+        "expected": 33,
+        "predicted": 33,
+        "matched": 33,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    "synthetic/csv_semicolon_eu": {
+      "documents": 1,
+      "field_accuracy": {
+        "invoice_number": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        },
+        "invoice_date": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        },
+        "supplier_name": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        },
+        "customer_name": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        },
+        "currency": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        },
+        "subtotal": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        },
+        "tax": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        },
+        "total": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        }
+      },
+      "micro_accuracy": 1.0,
+      "document_exact_match": {
+        "correct": 1,
+        "rate": 1.0
+      },
+      "line_items": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 28,
+        "fp": 0,
+        "fn": 0
+      },
+      "hallucination": {
+        "count": 0,
+        "null_gt_fields": 1,
+        "rate": 0.0
+      },
+      "invoices": {
+        "expected": 6,
+        "predicted": 6,
+        "matched": 6,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    "synthetic/digital_pdf": {
+      "documents": 3,
+      "field_accuracy": {
+        "invoice_number": {
+          "correct": 3,
+          "total": 3,
+          "accuracy": 1.0
+        },
+        "invoice_date": {
+          "correct": 3,
+          "total": 3,
+          "accuracy": 1.0
+        },
+        "supplier_name": {
+          "correct": 3,
+          "total": 3,
+          "accuracy": 1.0
+        },
+        "customer_name": {
+          "correct": 3,
+          "total": 3,
+          "accuracy": 1.0
+        },
+        "currency": {
+          "correct": 3,
+          "total": 3,
+          "accuracy": 1.0
+        },
+        "subtotal": {
+          "correct": 3,
+          "total": 3,
+          "accuracy": 1.0
+        },
+        "tax": {
+          "correct": 3,
+          "total": 3,
+          "accuracy": 1.0
+        },
+        "total": {
+          "correct": 3,
+          "total": 3,
+          "accuracy": 1.0
+        }
+      },
+      "micro_accuracy": 1.0,
+      "document_exact_match": {
+        "correct": 3,
+        "rate": 1.0
+      },
+      "line_items": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 11,
+        "fp": 0,
+        "fn": 0
+      },
+      "hallucination": {
+        "count": 0,
+        "null_gt_fields": 0,
+        "rate": null
+      },
+      "invoices": {
+        "expected": 3,
+        "predicted": 3,
+        "matched": 3,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    "synthetic/image_photo": {
+      "documents": 1,
+      "field_accuracy": {
+        "invoice_number": {
+          "correct": 1,
+          "total": 1,
+          "accuracy": 1.0
+        },
+        "invoice_date": {
+          "correct": 1,
+          "total": 1,
+          "accuracy": 1.0
+        },
+        "supplier_name": {
+          "correct": 1,
+          "total": 1,
+          "accuracy": 1.0
+        },
+        "customer_name": {
+          "correct": 1,
+          "total": 1,
+          "accuracy": 1.0
+        },
+        "currency": {
+          "correct": 1,
+          "total": 1,
+          "accuracy": 1.0
+        },
+        "subtotal": {
+          "correct": 1,
+          "total": 1,
+          "accuracy": 1.0
+        },
+        "tax": {
+          "correct": 1,
+          "total": 1,
+          "accuracy": 1.0
+        },
+        "total": {
+          "correct": 1,
+          "total": 1,
+          "accuracy": 1.0
+        }
+      },
+      "micro_accuracy": 1.0,
+      "document_exact_match": {
+        "correct": 1,
+        "rate": 1.0
+      },
+      "line_items": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 7,
+        "fp": 0,
+        "fn": 0
+      },
+      "hallucination": {
+        "count": 0,
+        "null_gt_fields": 0,
+        "rate": null
+      },
+      "invoices": {
+        "expected": 1,
+        "predicted": 1,
+        "matched": 1,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    "synthetic/scanned_pdf": {
+      "documents": 2,
+      "field_accuracy": {
+        "invoice_number": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "invoice_date": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "supplier_name": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "customer_name": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "currency": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "subtotal": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "tax": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "total": {
+          "correct": 2,
+          "total": 2,
+          "accuracy": 1.0
+        }
+      },
+      "micro_accuracy": 1.0,
+      "document_exact_match": {
+        "correct": 2,
+        "rate": 1.0
+      },
+      "line_items": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 6,
+        "fp": 0,
+        "fn": 0
+      },
+      "hallucination": {
+        "count": 0,
+        "null_gt_fields": 0,
+        "rate": null
+      },
+      "invoices": {
+        "expected": 2,
+        "predicted": 2,
+        "matched": 2,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    "synthetic/xls_ledger": {
+      "documents": 1,
+      "field_accuracy": {
+        "invoice_number": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        },
+        "invoice_date": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        },
+        "supplier_name": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        },
+        "customer_name": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        },
+        "currency": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        },
+        "subtotal": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        },
+        "tax": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        },
+        "total": {
+          "correct": 6,
+          "total": 6,
+          "accuracy": 1.0
+        }
+      },
+      "micro_accuracy": 1.0,
+      "document_exact_match": {
+        "correct": 1,
+        "rate": 1.0
+      },
+      "line_items": {
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      },
+      "hallucination": {
+        "count": 0,
+        "null_gt_fields": 0,
+        "rate": null
+      },
+      "invoices": {
+        "expected": 6,
+        "predicted": 6,
+        "matched": 6,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    "synthetic/xlsx_multisheet_register": {
+      "documents": 1,
+      "field_accuracy": {
+        "invoice_number": {
+          "correct": 10,
+          "total": 10,
+          "accuracy": 1.0
+        },
+        "invoice_date": {
+          "correct": 10,
+          "total": 10,
+          "accuracy": 1.0
+        },
+        "supplier_name": {
+          "correct": 10,
+          "total": 10,
+          "accuracy": 1.0
+        },
+        "customer_name": {
+          "correct": 10,
+          "total": 10,
+          "accuracy": 1.0
+        },
+        "currency": {
+          "correct": 10,
+          "total": 10,
+          "accuracy": 1.0
+        },
+        "subtotal": {
+          "correct": 10,
+          "total": 10,
+          "accuracy": 1.0
+        },
+        "tax": {
+          "correct": 10,
+          "total": 10,
+          "accuracy": 1.0
+        },
+        "total": {
+          "correct": 10,
+          "total": 10,
+          "accuracy": 1.0
+        }
+      },
+      "micro_accuracy": 1.0,
+      "document_exact_match": {
+        "correct": 1,
+        "rate": 1.0
+      },
+      "line_items": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 43,
+        "fp": 0,
+        "fn": 0
+      },
+      "hallucination": {
+        "count": 0,
+        "null_gt_fields": 0,
+        "rate": null
+      },
+      "invoices": {
+        "expected": 10,
+        "predicted": 10,
+        "matched": 10,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    "synthetic/xlsx_register": {
+      "documents": 1,
+      "field_accuracy": {
+        "invoice_number": {
+          "correct": 5,
+          "total": 5,
+          "accuracy": 1.0
+        },
+        "invoice_date": {
+          "correct": 5,
+          "total": 5,
+          "accuracy": 1.0
+        },
+        "supplier_name": {
+          "correct": 5,
+          "total": 5,
+          "accuracy": 1.0
+        },
+        "customer_name": {
+          "correct": 5,
+          "total": 5,
+          "accuracy": 1.0
+        },
+        "currency": {
+          "correct": 5,
+          "total": 5,
+          "accuracy": 1.0
+        },
+        "subtotal": {
+          "correct": 5,
+          "total": 5,
+          "accuracy": 1.0
+        },
+        "tax": {
+          "correct": 5,
+          "total": 5,
+          "accuracy": 1.0
+        },
+        "total": {
+          "correct": 5,
+          "total": 5,
+          "accuracy": 1.0
+        }
+      },
+      "micro_accuracy": 1.0,
+      "document_exact_match": {
+        "correct": 1,
+        "rate": 1.0
+      },
+      "line_items": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 16,
+        "fp": 0,
+        "fn": 0
+      },
+      "hallucination": {
+        "count": 0,
+        "null_gt_fields": 0,
+        "rate": null
+      },
+      "invoices": {
+        "expected": 5,
+        "predicted": 5,
+        "matched": 5,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    }
+  },
+  "validation": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "tp": 3,
+    "fp": 0,
+    "fn": 0
+  },
+  "duplicates": {
+    "precision": null,
+    "recall": null,
+    "groups": 0,
+    "detected_groups": 0,
+    "flagged": 0,
+    "correct_flags": 0
+  },
+  "crosschecks": [],
+  "crosschecks_passed": 0,
+  "operational": {
+    "valid_documents": 12,
+    "completed": 9,
+    "needs_review": 3,
+    "failed": 0,
+    "rejected_at_upload": 0,
+    "success_rate": 1.0,
+    "failure_rate": 0.0,
+    "document_review_rate": 0.25,
+    "invoices_routed_to_review": 3,
+    "invoices_routed_to_review_with_known_fault": 3,
+    "invalid_documents": 8,
+    "graceful_handling": {
+      "handled": 8,
+      "total": 8,
+      "rate": 1.0
+    },
+    "stuck_documents": 0
+  },
+  "performance": {
+    "all": {
+      "documents": 12,
+      "pages": 14,
+      "processing_s_per_document": {
+        "p50": 2.762,
+        "p95": 4.4960499999999985
+      },
+      "processing_s_per_page": {
+        "p50": 2.307,
+        "p95": 4.4960499999999985
+      },
+      "wall_s_per_document": {
+        "p50": 21.92976939678192,
+        "p95": 31.981298947334288
+      },
+      "pages_per_minute": 26.43837341055017,
+      "invoices_expected": 35,
+      "invoices_predicted": 35
+    },
+    "by_category": {
+      "csv_semicolon_eu": {
+        "documents": 1,
+        "pages": 1,
+        "processing_s_per_document": {
+          "p50": 1.509,
+          "p95": 1.509
+        },
+        "processing_s_per_page": {
+          "p50": 1.509,
+          "p95": 1.509
+        },
+        "wall_s_per_document": {
+          "p50": 25.017377138137817,
+          "p95": 25.017377138137817
+        },
+        "pages_per_minute": 39.761431411530815,
+        "invoices_expected": 6,
+        "invoices_predicted": 6
+      },
+      "digital_pdf": {
+        "documents": 3,
+        "pages": 3,
+        "processing_s_per_document": {
+          "p50": 1.965,
+          "p95": 3.2853
+        },
+        "processing_s_per_page": {
+          "p50": 1.965,
+          "p95": 3.2853
+        },
+        "wall_s_per_document": {
+          "p50": 6.483074903488159,
+          "p95": 8.350278401374817
+        },
+        "pages_per_minute": 25.626423690205012,
+        "invoices_expected": 3,
+        "invoices_predicted": 3
+      },
+      "image_clean": {
+        "documents": 2,
+        "pages": 2,
+        "processing_s_per_document": {
+          "p50": 3.1365,
+          "p95": 3.57525
+        },
+        "processing_s_per_page": {
+          "p50": 3.1365,
+          "p95": 3.57525
+        },
+        "wall_s_per_document": {
+          "p50": 32.08234786987305,
+          "p95": 32.99178817272186
+        },
+        "pages_per_minute": 19.12960306073649,
+        "invoices_expected": 2,
+        "invoices_predicted": 2
+      },
+      "image_photo": {
+        "documents": 1,
+        "pages": 1,
+        "processing_s_per_document": {
+          "p50": 5.469,
+          "p95": 5.469
+        },
+        "processing_s_per_page": {
+          "p50": 5.469,
+          "p95": 5.469
+        },
+        "wall_s_per_document": {
+          "p50": 20.899463176727295,
+          "p95": 20.899463176727295
+        },
+        "pages_per_minute": 10.970927043335163,
+        "invoices_expected": 1,
+        "invoices_predicted": 1
+      },
+      "scanned_pdf": {
+        "documents": 2,
+        "pages": 2,
+        "processing_s_per_document": {
+          "p50": 3.63,
+          "p95": 3.693
+        },
+        "processing_s_per_page": {
+          "p50": 3.63,
+          "p95": 3.693
+        },
+        "wall_s_per_document": {
+          "p50": 13.771522521972656,
+          "p95": 14.714229297637939
+        },
+        "pages_per_minute": 16.528925619834713,
+        "invoices_expected": 2,
+        "invoices_predicted": 2
+      },
+      "xls_ledger": {
+        "documents": 1,
+        "pages": 1,
+        "processing_s_per_document": {
+          "p50": 0.424,
+          "p95": 0.424
+        },
+        "processing_s_per_page": {
+          "p50": 0.424,
+          "p95": 0.424
+        },
+        "wall_s_per_document": {
+          "p50": 25.012470960617065,
+          "p95": 25.012470960617065
+        },
+        "pages_per_minute": 141.50943396226415,
+        "invoices_expected": 6,
+        "invoices_predicted": 6
+      },
+      "xlsx_multisheet_register": {
+        "documents": 1,
+        "pages": 3,
+        "processing_s_per_document": {
+          "p50": 2.875,
+          "p95": 2.875
+        },
+        "processing_s_per_page": {
+          "p50": 0.9583333333333334,
+          "p95": 0.9583333333333334
+        },
+        "wall_s_per_document": {
+          "p50": 22.960075616836548,
+          "p95": 22.960075616836548
+        },
+        "pages_per_minute": 62.60869565217391,
+        "invoices_expected": 10,
+        "invoices_predicted": 10
+      },
+      "xlsx_register": {
+        "documents": 1,
+        "pages": 1,
+        "processing_s_per_document": {
+          "p50": 0.938,
+          "p95": 0.938
+        },
+        "processing_s_per_page": {
+          "p50": 0.938,
+          "p95": 0.938
+        },
+        "wall_s_per_document": {
+          "p50": 27.059216260910034,
+          "p95": 27.059216260910034
+        },
+        "pages_per_minute": 63.965884861407254,
+        "invoices_expected": 5,
+        "invoices_predicted": 5
+      }
+    }
+  },
+  "http_5xx": 0,
+  "llm": null,
+  "api_stats": {
+    "documents": {
+      "total": 17,
+      "queued": 0,
+      "processing": 0,
+      "completed": 9,
+      "needs_review": 3,
+      "failed": 5
+    },
+    "invoices": {
+      "total": 35,
+      "ok": 32,
+      "needs_review": 3,
+      "approved": 0
+    },
+    "pages_processed": 15,
+    "avg_processing_ms": 2647,
+    "top_issue_codes": [
+      {
+        "code": "TOTAL_MISMATCH",
+        "count": 2
+      },
+      {
+        "code": "INVALID_NUMBER",
+        "count": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,227 @@
+{
+ "docs": {
+  "syn-digital_00": {
+   "document_id": "16cd9c83-928a-4ece-b74c-abb04fd78ad7",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.7330897,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 4.371588230133057
+   }
+  },
+  "syn-digital_01": {
+   "document_id": "9a8cf9e2-807d-4f7d-809c-64994c6e1567",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.7330897,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 6.483074903488159
+   }
+  },
+  "syn-digital_02": {
+   "document_id": "4623875b-88ad-4d3c-9541-1f09a5b26401",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.7330897,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 8.557745456695557
+   }
+  },
+  "syn-scanned_00": {
+   "document_id": "ef3d9f21-d3e2-4210-9066-718b08c4459c",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.7330897,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 12.72407054901123
+   }
+  },
+  "syn-scanned_01": {
+   "document_id": "24c3d995-ffe8-426c-bd97-e0e01044c0ef",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.7330897,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 14.818974494934082
+   }
+  },
+  "syn-photo_00": {
+   "document_id": "d97e2422-c063-439b-95d2-c897d9badd5a",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.8413033,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 20.899463176727295
+   }
+  },
+  "syn-ap_register_2025": {
+   "document_id": "d36400e4-0055-4851-8e07-26fbd6a15d79",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.8413033,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 3,
+    "pages_total": 3,
+    "wall_s": 22.960075616836548
+   }
+  },
+  "syn-supplier_ledger": {
+   "document_id": "8a83d154-60b5-4f30-bf66-79d70663ec29",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.8413033,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 25.012470960617065
+   }
+  },
+  "syn-erp_export_eu": {
+   "document_id": "335beb7d-4485-4b78-89f2-71ef67495112",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.8413033,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 25.017377138137817
+   }
+  },
+  "syn-erp_export": {
+   "document_id": "8db3b0aa-4b95-4868-8474-18d5b1b4c924",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.8413033,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 27.059216260910034
+   }
+  },
+  "syn-zero_bytes": {
+   "document_id": null,
+   "rejected_code": "EMPTY_FILE",
+   "uploaded_at": 1793466814.8774498,
+   "final": null
+  },
+  "syn-not_really_a": {
+   "document_id": null,
+   "rejected_code": "FILE_TYPE_MISMATCH",
+   "uploaded_at": 1793466814.8774498,
+   "final": null
+  },
+  "syn-unsupported": {
+   "document_id": null,
+   "rejected_code": "UNSUPPORTED_FILE_TYPE",
+   "uploaded_at": 1793466814.8774498,
+   "final": null
+  },
+  "syn-broken_body": {
+   "document_id": "dc854edf-033c-4a22-9af6-930e315b89a9",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.8774498,
+   "final": {
+    "status": "failed",
+    "error_code": "CORRUPTED_FILE",
+    "pages_done": 0,
+    "pages_total": null,
+    "wall_s": 27.02774715423584
+   }
+  },
+  "syn-password_protected": {
+   "document_id": "438e4af8-051e-454c-b6eb-1b375471acf4",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.8774498,
+   "final": {
+    "status": "failed",
+    "error_code": "ENCRYPTED_FILE",
+    "pages_done": 0,
+    "pages_total": null,
+    "wall_s": 27.032761096954346
+   }
+  },
+  "syn-corrupt_workbook": {
+   "document_id": "7b4eda17-15a4-4110-a6f5-f881f8468213",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.8942635,
+   "final": {
+    "status": "failed",
+    "error_code": "CORRUPTED_FILE",
+    "pages_done": 0,
+    "pages_total": null,
+    "wall_s": 27.020365476608276
+   }
+  },
+  "syn-blank_page": {
+   "document_id": "9ce4e738-00da-4a30-8ed6-5cab52a35403",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.8942635,
+   "final": {
+    "status": "failed",
+    "error_code": "NO_CONTENT",
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 27.024640321731567
+   }
+  },
+  "syn-header_only": {
+   "document_id": "9fe6f154-01b4-4ab1-a994-629e9889f084",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.8942635,
+   "final": {
+    "status": "failed",
+    "error_code": "NO_CONTENT",
+    "pages_done": 0,
+    "pages_total": null,
+    "wall_s": 27.02944803237915
+   }
+  },
+  "kat-test_00": {
+   "document_id": "fffc68ce-53d5-47a0-98db-d44e64776649",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.8942635,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 31.071858644485474
+   }
+  },
+  "kat-test_01": {
+   "document_id": "3686b4e8-4115-4326-963a-dcdc1740605c",
+   "rejected_code": null,
+   "uploaded_at": 1793466814.8942635,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 33.09283709526062
+   }
+  }
+ },
+ "http_5xx": 0
+}

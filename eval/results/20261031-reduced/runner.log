@@ -1,0 +1,21 @@
+syn-zero_bytes rejected EMPTY_FILE
+syn-not_really_a rejected FILE_TYPE_MISMATCH
+syn-unsupported rejected UNSUPPORTED_FILE_TYPE
+syn-digital_00 completed 4.4s
+syn-digital_01 completed 6.5s
+syn-digital_02 needs_review 8.6s
+syn-scanned_00 completed 12.7s
+syn-scanned_01 completed 14.8s
+syn-photo_00 completed 20.9s
+syn-ap_register_2025 completed 23.0s
+syn-supplier_ledger completed 25.0s
+syn-erp_export_eu needs_review 25.0s
+syn-erp_export needs_review 27.1s
+syn-broken_body failed 27.0s
+syn-password_protected failed 27.0s
+syn-corrupt_workbook failed 27.0s
+syn-blank_page failed 27.0s
+syn-header_only failed 27.0s
+kat-test_00 completed 31.1s
+kat-test_01 completed 33.1s
+wrote eval/results/20261031-reduced/metrics.json, per_document.csv, report.md

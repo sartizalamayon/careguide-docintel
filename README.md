@@ -58,19 +58,19 @@ More: [Architecture and decisions](docs/ARCHITECTURE.md) · [Database schema](do
 
 ## Results
 
-Measured end to end through the API on 160 labelled files (81 synthetic invoices covering every format and fault type + 100 public Katana ML invoice images, 26 of them degraded). Full report: [docs/EVALUATION.md](docs/EVALUATION.md).
+Measured end to end through the API on a **reduced 20-file subset** (12 valid documents with 35 invoices, plus 8 invalid files), using `gemini-2.5-flash-lite`. The full 160-file set could not be run because the available LLM key is on the free tier (20 requests per day). The subset checks the pipeline and failure handling, not accuracy on hard cases. Full report: [docs/EVALUATION.md](docs/EVALUATION.md).
 
 | Metric | Value |
 |---|---|
-| Field accuracy (8 fields, micro-avg) | TODO |
-| Line-item F1 | TODO |
-| Hallucination rate (value where none exists) | TODO |
-| Validation precision / recall | TODO |
-| Duplicate detection recall | TODO |
-| Document success rate / failure rate | TODO |
-| Corrupted files handled gracefully | TODO / 8 |
-| Median processing time: digital PDF / scanned page / spreadsheet | TODO |
-| 1000-page PDF | TODO pages/min |
+| Field accuracy (8 fields, micro-avg) | 100.0% (35 invoices) |
+| Line-item F1 | 100.0% (118 of 118 items) |
+| Hallucination rate (value where none exists) | 0.0% (1 null field in the subset) |
+| Validation precision / recall | 100.0% / 100.0% (3 injected faults found) |
+| Duplicate detection recall | not measured in the subset |
+| Document success rate / failure rate | 100.0% / 0.0% (12 valid documents) |
+| Corrupted files handled gracefully | 8 / 8 |
+| Median processing time per document | 2.76 s (p95 4.50 s) |
+| 1000-page PDF | not measured |
 
 ## Tests
 
