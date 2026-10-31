@@ -82,7 +82,13 @@ Measured on 2 cores with one worker and one LLM call at a time, so these are con
 | Spreadsheet (csv, xls, xlsx, multi-sheet) | 0.42 to 2.88 s |
 | Throughput, all 12 | 26.4 pages/min |
 | LLM calls, tokens, cache hits | 8 calls, 7,197 input and 3,985 output tokens, 0 cache hits (cache emptied first) |
-| OCR time per page, 1000-page and 50-page runs, peak memory | not measured |
+| 1000-page digital PDF, parse and segmentation only (no LLM) | 0.7 to 1.5 s, peak 140 MB, 499 segments for 499 expected invoices |
+| 50-page scanned PDF, OCR parse only (no LLM) | 40.1 s, 75 pages/min, peak 438 MB, 50 segments for 50 expected invoices |
+| Full pipeline on the 1000-page and 50-page files | not run: needs about 550 LLM calls, beyond the free quota |
+
+The 1000-page figures were measured by calling the parser and segmenter directly on `datasets/eval/perf/`, not through the API. They show the non-LLM stages are cheap. End-to-end time for a 499-invoice file will be dominated by the LLM calls (one per invoice), so it depends on the provider's rate limits and the `LLM_CONCURRENCY` setting.
+
+Segmentation on the 1000-page file originally produced 646 segments instead of 499, because a street number was read as an invoice number and split multi-page invoices. That is fixed in commit `1f36a64`. The reduced evaluation run above was made before the fix. Its files are single-page, so it was not affected.
 
 ## 5. Error analysis
 
