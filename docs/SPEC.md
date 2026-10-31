@@ -597,3 +597,17 @@ Run with `make eval` (and `make eval-perf`). It executes `python -m eval.run_eva
    - **Cross-checks**: run `synthetic_meta.json:crosschecks` through `POST /cross-checks` and compare the matched/mismatched(fields)/only_in sets → pass/fail per pair.
    - **Operational**: document success rate = (completed + needs_review) / valid docs. Failure rate = failed / valid docs. Review rate. p50/p95 processing time per document and per page by category. Pages/minute for the 1000-page PDF. LLM tokens and calls (from `llm_calls`; also count cache hits).
 4. Write `metrics.json`, `per_document.csv` and `report.md` (tables) into `--out`. Then copy the numbers into `docs/EVALUATION.md`. Never type numbers by hand that the runner did not produce.
+
+## Addendum (2026-11-01): Google sign-in and a user's own Groq key
+
+Added at the author's request after the main build (see `DECISIONS_LOG.md`).
+
+- **Web:** next-auth 4 with the Google provider and JWT sessions (`lib/auth.ts`, `app/api/auth/[...nextauth]`). Enabled only when `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` are set; otherwise the button at the bottom of the left nav is disabled with an explanation. Signed in, the same place shows the user, the model in use, and a menu with "Groq API key" and "Sign out".
+- **Proxy:** `/api/backend/*` adds `X-User-Email` from the server-side session. The browser cannot set it.
+- **API** (`app/api/account.py`, API key required, `X-User-Email` required → else 401 `SIGN_IN_REQUIRED`):
+  - `GET /me/llm-key` → `{email, key: {provider, model, key_hint, updated_at} | null, models, server_model}`
+  - `PUT /me/llm-key {api_key, model}` → checks the key with Groq `GET /models` (400 `INVALID_API_KEY`, 400 `MODEL_NOT_AVAILABLE`, 422 `UNKNOWN_MODEL`, 502 `PROVIDER_UNREACHABLE`/`PROVIDER_ERROR`), then stores it encrypted.
+  - `PATCH /me/llm-key {model}` → change the model (checked again). `DELETE /me/llm-key` → 204, idempotent.
+- **Storage:** migration `0002` adds `documents.uploaded_by` and `user_llm_keys` (key encrypted with Fernet, key from `CREDENTIALS_SECRET` or `API_KEY`).
+- **Processing:** `llm.client_for(uploaded_by)` returns a client whose providers are the user's Groq model first, then the server's `LLM_MODEL` and `LLM_FALLBACK_MODEL`. Without a saved key it is the normal client.
+- **Settings:** `GROQ_BASE_URL`, `GROQ_MODELS` (offered models), `CREDENTIALS_SECRET`; web: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`.

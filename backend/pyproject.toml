@@ -30,6 +30,7 @@ dependencies = [
     "fastembed>=0.5,<0.8",
     "structlog>=24.4,<26",
     "httpx>=0.28,<0.29",
+    "cryptography>=44,<47",
 ]
 
 [dependency-groups]

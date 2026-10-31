@@ -194,7 +194,7 @@ def test_unknown_model_without_fallback_names_the_model(db, settings):
 def test_fallback_equal_to_main_model_is_ignored(db, settings, monkeypatch):
     monkeypatch.setattr(settings, "LLM_FALLBACK_MODEL", settings.LLM_MODEL)
 
-    assert LlmClient(FakeApi())._routes(None) == [(settings.LLM_MODEL, "main")]
+    assert LlmClient(FakeApi())._routes(None) == [(settings.LLM_MODEL, 0)]
 
 
 def test_u26_same_input_twice_is_served_from_the_cache(db, settings):
@@ -261,10 +261,17 @@ def test_object_mode_setting(db, settings, monkeypatch):
 def test_client_without_api_is_built_lazily():
     client = LlmClient()
 
-    assert client._api is None
+    assert client._apis == []
 
 
 def test_parse_json_rejects_non_objects():
     assert parse_json('```\n{"a": 1}\n```') == {"a": 1}
     with pytest.raises(ValueError):
         parse_json("[1, 2]")
+
+
+def test_credentials_hint_never_shows_the_middle_of_the_key():
+    from app.credentials import hint
+
+    assert hint("gsk_abcdefghijklmnopqrstuvwxyz1234") == "gsk_…1234"
+    assert hint("plainkeywithoutprefix9876") == "…9876"

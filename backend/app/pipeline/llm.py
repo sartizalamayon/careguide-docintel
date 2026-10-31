@@ -10,6 +10,7 @@ import hashlib
 import json
 import re
 import time
+from dataclasses import dataclass
 from functools import lru_cache
 from typing import Any, ClassVar
 
@@ -18,11 +19,12 @@ from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 
+from app import credentials
 from app.config import get_settings
 from app.db import session_scope
 from app.errors import LLM_BAD_OUTPUT, LLM_UNAVAILABLE, ProcessingError
 from app.log import log
-from app.models import LlmCall
+from app.models import LlmCall, UserLlmKey
 from app.pipeline.prompts import PROMPT_VERSION, REPAIR_SYSTEM, REPAIR_USER
 
 RETRYABLE_ERRORS = (
@@ -92,45 +94,64 @@ def _record_call(key: str, purpose: str, model: str, response: dict[str, Any], u
         session.execute(stmt.on_conflict_do_update(index_elements=[LlmCall.cache_key], set_=refreshed))
 
 
-def _build_api(base_url: str, api_key: str) -> Any:
-    if not api_key:
+@dataclass(frozen=True)
+class Provider:
+    """One OpenAI-compatible endpoint and model. The client tries its providers in order."""
+
+    base_url: str
+    api_key: str
+    model: str
+
+
+def default_providers() -> list[Provider]:
+    """The server's main model, then LLM_FALLBACK_MODEL (same endpoint and key unless LLM_FALLBACK_* say otherwise)."""
+    s = get_settings()
+    providers = [Provider(s.LLM_BASE_URL, s.LLM_API_KEY, s.LLM_MODEL)]
+    if s.LLM_FALLBACK_MODEL and s.LLM_FALLBACK_MODEL != s.LLM_MODEL:
+        providers.append(
+            Provider(
+                s.LLM_FALLBACK_BASE_URL or s.LLM_BASE_URL, s.LLM_FALLBACK_API_KEY or s.LLM_API_KEY, s.LLM_FALLBACK_MODEL
+            )
+        )
+    return providers
+
+
+def _build_api(provider: Provider) -> Any:
+    if not provider.api_key:
         raise ProcessingError(LLM_UNAVAILABLE, "LLM_API_KEY is not set, so extraction cannot run.")
-    return openai.OpenAI(base_url=base_url, api_key=api_key, timeout=get_settings().LLM_TIMEOUT_S, max_retries=0)
+    return openai.OpenAI(
+        base_url=provider.base_url, api_key=provider.api_key, timeout=get_settings().LLM_TIMEOUT_S, max_retries=0
+    )
 
 
 class LlmClient:
     # Set once a provider rejects a json_schema request; object mode is then used for the rest of the process.
     _schema_rejected: ClassVar[bool] = False
 
-    def __init__(self, api: Any | None = None, fallback_api: Any | None = None) -> None:
-        self._api = api
-        self._fallback_api = fallback_api
+    def __init__(self, *apis: Any, providers: list[Provider] | None = None) -> None:
+        """`apis` are prebuilt API objects for the providers, in order (tests pass fakes). Missing ones are built
+        lazily from `providers`, which default to the server settings."""
+        self._providers = providers
+        self._apis: list[Any] = list(apis)
 
     @property
-    def api(self) -> Any:
-        if self._api is None:
-            settings = get_settings()
-            self._api = _build_api(settings.LLM_BASE_URL, settings.LLM_API_KEY)
-        return self._api
+    def providers(self) -> list[Provider]:
+        return self._providers if self._providers is not None else default_providers()
 
-    @property
-    def fallback_api(self) -> Any:
-        """The fallback provider. Base URL and key default to the main ones (same provider, other model)."""
-        if self._fallback_api is None:
-            settings = get_settings()
-            self._fallback_api = _build_api(
-                settings.LLM_FALLBACK_BASE_URL or settings.LLM_BASE_URL,
-                settings.LLM_FALLBACK_API_KEY or settings.LLM_API_KEY,
-            )
-        return self._fallback_api
+    def _api(self, index: int) -> Any:
+        while len(self._apis) <= index:
+            self._apis.append(None)
+        if self._apis[index] is None:
+            self._apis[index] = _build_api(self.providers[index])
+        return self._apis[index]
 
-    def _routes(self, model: str | None) -> list[tuple[str, str]]:
-        """(model, which api) in the order they are tried."""
-        settings = get_settings()
-        main = model or settings.LLM_MODEL
-        routes = [(main, "main")]
-        if settings.LLM_FALLBACK_MODEL and settings.LLM_FALLBACK_MODEL != main:
-            routes.append((settings.LLM_FALLBACK_MODEL, "fallback"))
+    def _routes(self, model: str | None) -> list[tuple[str, int]]:
+        """(model, provider index) in the order they are tried. `model` overrides the first provider's model."""
+        providers = self.providers
+        routes = [(model or providers[0].model, 0)]
+        for index, provider in enumerate(providers[1:], start=1):
+            if provider.model not in [name for name, _ in routes]:
+                routes.append((provider.model, index))
         return routes
 
     def complete_json(
@@ -147,15 +168,15 @@ class LlmClient:
                     usage = {"input_tokens": 0, "output_tokens": 0, "latency_ms": 0, "cached": True, "model": name}
                     return cached, usage
 
-        for index, (name, which) in enumerate(routes):
-            api = self.api if which == "main" else self.fallback_api
+        for position, (name, index) in enumerate(routes):
             started = time.perf_counter()
             try:
+                api = self._api(index)
                 data, (input_tokens, output_tokens) = self._complete(api, name, purpose, system, user, schema)
             except ProcessingError as exc:
-                if exc.code != LLM_UNAVAILABLE or index == len(routes) - 1:
+                if exc.code != LLM_UNAVAILABLE or position == len(routes) - 1:
                     raise
-                log.warning("llm_fallback", purpose=purpose, failed_model=name, fallback_model=routes[index + 1][0])
+                log.warning("llm_fallback", purpose=purpose, failed_model=name, fallback_model=routes[position + 1][0])
                 continue
             usage = {
                 "input_tokens": input_tokens,
@@ -224,3 +245,18 @@ class LlmClient:
 def get_llm() -> LlmClient:
     """The process-wide client. Pipeline code calls this; tests monkeypatch it."""
     return LlmClient()
+
+
+def client_for(user_email: str | None) -> LlmClient:
+    """The client for a document: the uploader's own Groq key first (server models as fallback), else the default."""
+    if user_email:
+        with session_scope() as session:
+            row = session.get(UserLlmKey, user_email)
+            own = (
+                Provider(get_settings().GROQ_BASE_URL, credentials.decrypt(row.key_encrypted), row.model)
+                if row is not None
+                else None
+            )
+        if own is not None:
+            return LlmClient(providers=[own, *default_providers()])
+    return get_llm()

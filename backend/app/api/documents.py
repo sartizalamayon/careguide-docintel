@@ -41,7 +41,7 @@ from app.schemas import (
     UploadedDocument,
     UploadResponse,
 )
-from app.security import require_api_key
+from app.security import current_user, require_api_key
 from app.storage import FileTooLargeError, discard, move_into_storage, open_path, stream_to_temp
 from app.worker import process_document as enqueue_document
 
@@ -106,6 +106,7 @@ def _record_event(
 def upload_documents(
     files: list[UploadFile] = File(..., description="One or more files (max MAX_FILES_PER_UPLOAD)"),
     db: Session = Depends(get_db),
+    user_email: str | None = Depends(current_user),
 ) -> UploadResponse | JSONResponse:
     settings = get_settings()
     if len(files) > settings.MAX_FILES_PER_UPLOAD:
@@ -156,6 +157,7 @@ def upload_documents(
             size_bytes=tmp.size,
             sha256=tmp.sha256,
             duplicate_of=duplicate_of,
+            uploaded_by=user_email,
             status="queued",
         )
         db.add(doc)

@@ -275,3 +275,28 @@ class Health(BaseModel):
 
 DocumentSummary.model_rebuild()
 DocumentDetail.model_rebuild()
+
+
+class LlmKeyOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    provider: str
+    model: str
+    key_hint: str
+    updated_at: dt.datetime
+
+
+class LlmKeyIn(BaseModel):
+    api_key: str = Field(min_length=20, max_length=200)
+    model: str
+
+
+class LlmKeyModelIn(BaseModel):
+    model: str
+
+
+class AccountLlmStatus(BaseModel):
+    email: str
+    key: LlmKeyOut | None
+    models: list[str]
+    server_model: str

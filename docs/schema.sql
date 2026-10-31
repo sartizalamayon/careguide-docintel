@@ -19,6 +19,7 @@ CREATE TABLE documents (
     size_bytes              BIGINT NOT NULL,
     sha256                  CHAR(64) NOT NULL,
     duplicate_of            UUID REFERENCES documents(id) ON DELETE SET NULL,  -- identical bytes uploaded earlier
+    uploaded_by             TEXT,                                -- Google email of the signed-in uploader (migration 0002)
     status                  TEXT NOT NULL DEFAULT 'queued'
                             CHECK (status IN ('queued','processing','completed','needs_review','failed')),
     stage                   TEXT CHECK (stage IN ('parsing','ocr','segmenting','extracting','validating','indexing')),
@@ -169,4 +170,15 @@ CREATE TABLE llm_calls (
     latency_ms      INT,
     response        JSONB NOT NULL,
     created_at      TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- A signed-in user's own LLM key (migration 0002). The key is encrypted (Fernet); only key_hint is returned.
+CREATE TABLE user_llm_keys (
+    user_email     TEXT PRIMARY KEY,
+    provider       TEXT NOT NULL DEFAULT 'groq' CHECK (provider IN ('groq')),
+    model          TEXT NOT NULL,
+    key_encrypted  TEXT NOT NULL,
+    key_hint       TEXT NOT NULL,
+    created_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at     TIMESTAMPTZ NOT NULL DEFAULT now()
 );

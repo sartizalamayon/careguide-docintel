@@ -26,6 +26,7 @@ os.environ.setdefault("EMBEDDING_CACHE_DIR", "/models")
 
 TABLES = [
     "llm_calls",
+    "user_llm_keys",
     "cross_checks",
     "processing_events",
     "corrections",

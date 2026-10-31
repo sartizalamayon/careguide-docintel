@@ -14,6 +14,7 @@ from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import UTC, datetime
+from functools import partial
 from pathlib import Path
 from typing import Any
 
@@ -33,9 +34,10 @@ from app.errors import (
 )
 from app.log import log
 from app.models import Document, DocumentPage, Invoice, LineItem, ProcessingEvent
-from app.pipeline import images, pdf, spreadsheets
+from app.pipeline import images, llm, pdf, spreadsheets
 from app.pipeline.embeddings import embed_passage, passage_text
 from app.pipeline.extract import extract_segment, map_columns
+from app.pipeline.llm import LlmClient
 from app.pipeline.normalize import norm_invoice_number, norm_supplier
 from app.pipeline.segment import segment_pages
 from app.pipeline.types import ExtractedInvoice, PageText, Segment
@@ -54,6 +56,7 @@ class DocInfo:
     file_type: str
     family: str
     storage_path: str
+    uploaded_by: str | None = None
 
 
 def _now() -> datetime:
@@ -110,7 +113,7 @@ def _load_info(document_id: uuid.UUID) -> DocInfo | None:
         doc.stage = None
         doc.progress = 0
         _event(session, document_id, "stage_started", message="processing started")
-        return DocInfo(document_id, doc.file_type, doc.family, doc.storage_path)
+        return DocInfo(document_id, doc.file_type, doc.family, doc.storage_path, doc.uploaded_by)
 
 
 def _fail(document_id: uuid.UUID, code: str, message: str, started: float) -> None:
@@ -162,7 +165,7 @@ def _process(document_id: uuid.UUID, from_stage: str) -> None:
     if segments is None:
         with _stage(document_id, "segmenting", PARSE_PROGRESS_END):
             segments = segment_pages(pages)
-    extracted = _extract(document_id, pages, segments)
+    extracted = _extract(document_id, pages, segments, llm.client_for(info.uploaded_by))
     invoices = sorted([*table_invoices, *extracted], key=lambda inv: (inv.page_start, inv.page_end))
     if not invoices:
         raise ProcessingError(NO_INVOICE_FOUND, "No invoice was found in this document.")
@@ -254,7 +257,8 @@ def _parse_pages(document_id: uuid.UUID, page_stream: Iterator[PageText], total:
 
 
 def _parse_spreadsheet(info: DocInfo) -> tuple[list[PageText], list[ExtractedInvoice], list[Segment]]:
-    results = spreadsheets.parse_workbook(Path(info.storage_path), info.file_type, map_columns=map_columns)
+    mapper = partial(map_columns, client=llm.client_for(info.uploaded_by))
+    results = spreadsheets.parse_workbook(Path(info.storage_path), info.file_type, map_columns=mapper)
     pages = [result.page for result in results]
     _update_document(info.document_id, pages_total=len(pages), pages_done=len(pages), progress=PARSE_PROGRESS_END)
     _store_pages(info.document_id, pages)
@@ -276,7 +280,9 @@ def _mean_confidence(segment: Segment, pages: list[PageText]) -> float | None:
     return sum(confidences) / len(confidences) if confidences else None
 
 
-def _extract(document_id: uuid.UUID, pages: list[PageText], segments: list[Segment]) -> list[ExtractedInvoice]:
+def _extract(
+    document_id: uuid.UUID, pages: list[PageText], segments: list[Segment], client: LlmClient
+) -> list[ExtractedInvoice]:
     if not segments:
         return []
     settings = get_settings()
@@ -285,7 +291,7 @@ def _extract(document_id: uuid.UUID, pages: list[PageText], segments: list[Segme
         _stage(document_id, "extracting", PARSE_PROGRESS_END),
         ThreadPoolExecutor(max_workers=settings.LLM_CONCURRENCY) as pool,
     ):
-        futures = [pool.submit(extract_segment, seg, _mean_confidence(seg, pages)) for seg in segments]
+        futures = [pool.submit(extract_segment, seg, _mean_confidence(seg, pages), client) for seg in segments]
         try:
             for index, future in enumerate(futures, start=1):
                 extracted = future.result()

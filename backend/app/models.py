@@ -49,6 +49,7 @@ class Document(Base):
     duplicate_of: Mapped[uuid.UUID | None] = mapped_column(
         UUID(as_uuid=True), ForeignKey("documents.id", ondelete="SET NULL")
     )
+    uploaded_by: Mapped[str | None] = mapped_column(Text)  # Google email of the signed-in uploader
     status: Mapped[str] = mapped_column(Text, nullable=False, server_default="queued")
     stage: Mapped[str | None] = mapped_column(Text)
     progress: Mapped[int] = mapped_column(SmallInteger, nullable=False, server_default="0")
@@ -238,3 +239,17 @@ class LlmCall(Base):
     latency_ms: Mapped[int | None] = mapped_column(Integer)
     response: Mapped[dict] = mapped_column(JSONB, nullable=False)
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class UserLlmKey(Base):
+    """A signed-in user's own LLM key (Groq). Stored encrypted; only a short hint is ever returned."""
+
+    __tablename__ = "user_llm_keys"
+
+    user_email: Mapped[str] = mapped_column(Text, primary_key=True)
+    provider: Mapped[str] = mapped_column(Text, nullable=False, server_default="groq")
+    model: Mapped[str] = mapped_column(Text, nullable=False)
+    key_encrypted: Mapped[str] = mapped_column(Text, nullable=False)
+    key_hint: Mapped[str] = mapped_column(Text, nullable=False)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
