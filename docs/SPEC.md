@@ -51,7 +51,7 @@ Out of scope: user accounts and roles, multi-tenancy, cloud object storage, Kube
 | PDF | PyMuPDF | Fast text extraction with word boxes, page rendering, and encryption/corruption detection |
 | OCR | Tesseract 5 (`--oem 1 --psm 4`) via pytesseract, OpenCV preprocessing | Measured: ~0.8 s/page and mean word confidence 93 on clean scans. Adaptive thresholding lifts phone photos from 24 to 84. No GPU needed |
 | Spreadsheets | pandas + openpyxl (xlsx), xlrd (xls), stdlib csv Sniffer + charset-normalizer | Standard and reliable |
-| LLM | Any OpenAI-compatible endpoint through the `openai` SDK. Default: Google Gemini `gemini-3.8-flash` via `https://generativelanguage.googleapis.com/v1beta/openai/` | Free tier, JSON-schema structured output, and the provider can be swapped by env vars (Groq, OpenAI, OpenRouter, Ollama) |
+| LLM | Any OpenAI-compatible endpoint through the `openai` SDK. Default: Google Gemini `gemini-3.5-flash-lite` (fallback `gemini-3.1-flash-lite`) via `https://generativelanguage.googleapis.com/v1beta/openai/` | Free tier, JSON-schema structured output, and the provider can be swapped by env vars (Groq, OpenAI, OpenRouter, Ollama) |
 | Embeddings | fastembed `BAAI/bge-small-en-v1.5` (384-d, ONNX, CPU) | Local, free and private. No API quota used for search |
 | Frontend | Next.js 15 (App Router) + TypeScript + Tailwind CSS 4 + shadcn/ui + TanStack Query 5 | Required stack. shadcn gives accessible components fast |
 | Packaging | Docker Compose (db, redis, api, worker, web) | One-command start for reviewers |
@@ -132,8 +132,8 @@ All settings live in `backend/app/config.py` (pydantic-settings, already written
 | `MAX_FILES_PER_UPLOAD` | 50 | |
 | `LLM_BASE_URL` | `https://generativelanguage.googleapis.com/v1beta/openai/` | |
 | `LLM_API_KEY` | (required for extraction) | |
-| `LLM_MODEL` | `gemini-3.8-flash` | |
-| `LLM_FALLBACK_MODEL` | `gemini-2.5-flash-lite` | tried when `LLM_MODEL` is still unavailable after 3 attempts. Empty = no fallback |
+| `LLM_MODEL` | `gemini-3.5-flash-lite` | |
+| `LLM_FALLBACK_MODEL` | `gemini-3.1-flash-lite` | tried when `LLM_MODEL` is still unavailable after 3 attempts. Empty = no fallback |
 | `LLM_FALLBACK_BASE_URL` / `LLM_FALLBACK_API_KEY` | empty | empty = same as `LLM_BASE_URL` / `LLM_API_KEY` (e.g. set them for Groq) |
 | `LLM_JSON_MODE` | `schema` | `schema` = response_format json_schema. `object` = json_object fallback |
 | `LLM_CONCURRENCY` | 4 | parallel LLM calls per document |
@@ -506,7 +506,7 @@ Schemas (Pydantic, `schemas.py`):
  "line_items": [{"position":1,"description":"…","quantity":"2","unit_price":"444.60","amount":"889.20"}],
  "issues": [{"code":"TOTAL_MISMATCH","severity":"error","field":"total","message":"…","details":{}}],
  "corrections": [{"field":"total","old_value":"1390.00","new_value":"1380.00","corrected_by":"Ayon","note":null,"created_at":"…"}],
- "llm_model": "gemini-3.8-flash", "prompt_version": "extract-v1", "raw_text": "…"}
+ "llm_model": "gemini-3.5-flash-lite", "prompt_version": "extract-v1", "raw_text": "…"}
 
 // PATCH /invoices/{id} request
 {"reviewer": "Ayon",                      // required, 1..80 chars

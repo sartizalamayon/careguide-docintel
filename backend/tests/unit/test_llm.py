@@ -170,6 +170,27 @@ def test_bad_output_does_not_switch_to_the_fallback(db, settings, monkeypatch):
     assert fallback.requests == []
 
 
+def test_unknown_main_model_goes_straight_to_the_fallback(db, settings, monkeypatch):
+    monkeypatch.setattr(settings, "LLM_FALLBACK_MODEL", "fast-model")
+    missing = openai.NotFoundError("no such model", response=httpx.Response(404, request=REQUEST), body=None)
+    main = FakeApi(missing)
+
+    data, usage = call(LlmClient(main, FakeApi('{"total": 2.0}')))
+
+    assert (data, usage["model"], len(main.requests)) == ({"total": 2.0}, "fast-model", 1)
+
+
+def test_unknown_model_without_fallback_names_the_model(db, settings):
+    missing = openai.NotFoundError("no such model", response=httpx.Response(404, request=REQUEST), body=None)
+
+    with pytest.raises(ProcessingError) as err:
+        call(LlmClient(FakeApi(missing)))
+
+    assert err.value.code == LLM_UNAVAILABLE
+    assert settings.LLM_MODEL in err.value.message
+    assert not err.value.retryable
+
+
 def test_fallback_equal_to_main_model_is_ignored(db, settings, monkeypatch):
     monkeypatch.setattr(settings, "LLM_FALLBACK_MODEL", settings.LLM_MODEL)
 

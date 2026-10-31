@@ -194,8 +194,10 @@ class LlmClient:
             response = self._send_with_fallback(api, model, purpose, system, user, schema)
         except RETRYABLE_ERRORS as exc:
             raise ProcessingError(
-                LLM_UNAVAILABLE, f"The LLM provider is unavailable ({type(exc).__name__}).", retryable=True
+                LLM_UNAVAILABLE, f"The LLM provider is unavailable for {model} ({type(exc).__name__}).", retryable=True
             ) from exc
+        except openai.NotFoundError as exc:
+            raise ProcessingError(LLM_UNAVAILABLE, f"The LLM provider does not serve the model {model}.") from exc
         return response.choices[0].message.content or "", _tokens(response.usage)
 
     def _send_with_fallback(self, api: Any, model: str, purpose: str, system: str, user: str, schema: dict) -> Any:
