@@ -28,3 +28,4 @@ datasets/eval/manifest_perf.jsonl
 .idea/
 .vscode/
 local-data/
+dump.rdb

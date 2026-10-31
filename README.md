@@ -63,7 +63,7 @@ The embedding model (about 130 MB) downloads on first use.
 
 Other commands: `make test`, `make lint`, `make logs`, `make data` (public labelled set), `make eval` (evaluation), `make help`.
 
-Use another LLM by changing three env vars. For example, Groq: `LLM_BASE_URL=https://api.groq.com/openai/v1`, `LLM_MODEL=openai/gpt-oss-120b`.
+The default model is `gemini-3.5-flash-lite` (about 2 s per invoice). If it is overloaded or rate-limited, the client retries three times within about 10 s and then switches to `LLM_FALLBACK_MODEL` (`gemini-3.1-flash-lite`). Use another LLM by changing three env vars. For example, Groq: `LLM_BASE_URL=https://api.groq.com/openai/v1`, `LLM_MODEL=openai/gpt-oss-120b`, or set the `LLM_FALLBACK_*` vars to use Groq only as the fallback.
 
 ## How it works
 
