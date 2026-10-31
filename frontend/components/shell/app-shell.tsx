@@ -13,10 +13,40 @@ const NAV = [
   { href: "/compare", label: "Cross-check", icon: GitCompareArrows },
 ];
 
+function isActive(href: string, pathname: string) {
+  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+}
+
+function MobileNav({ pathname }: { pathname: string }) {
+  return (
+    <header className="flex items-center gap-4 bg-sidebar px-4 py-3 text-sidebar-foreground lg:hidden">
+      <div className="font-heading text-lg font-semibold text-white">
+        Doc<span className="text-brand-orange">Intel</span>
+      </div>
+      <nav className="flex min-w-0 flex-1 gap-1 overflow-x-auto">
+        {NAV.map(({ href, label, icon: Icon }) => (
+          <Link
+            key={href}
+            href={href}
+            className={cn(
+              "flex shrink-0 items-center gap-2 rounded-md px-3 py-1.5 text-sm",
+              isActive(href, pathname) ? "bg-sidebar-accent font-medium text-white" : "hover:bg-sidebar-accent/60",
+            )}
+          >
+            <Icon className="size-4" />
+            {label}
+          </Link>
+        ))}
+      </nav>
+    </header>
+  );
+}
+
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen flex-col lg:flex-row">
+      <MobileNav pathname={pathname} />
       <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col bg-sidebar text-sidebar-foreground lg:flex">
         <div className="px-5 py-6">
           <div className="font-heading text-xl font-semibold text-white">
@@ -26,7 +56,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
         <nav className="flex flex-1 flex-col gap-1 px-3">
           {NAV.map(({ href, label, icon: Icon }) => {
-            const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
+            const active = isActive(href, pathname);
             return (
               <Link
                 key={href}
