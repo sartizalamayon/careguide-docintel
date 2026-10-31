@@ -87,19 +87,21 @@ More: [Architecture and decisions](docs/ARCHITECTURE.md) · [Database schema](do
 
 ## Results
 
-Measured end to end through the API on a **reduced 20-file subset** (12 valid documents with 35 invoices, plus 8 invalid files), using `gemini-2.5-flash-lite`. The full 160-file set could not be run because the available LLM key is on the free tier (20 requests per day). The subset checks the pipeline and failure handling, not accuracy on hard cases. Full report: [docs/EVALUATION.md](docs/EVALUATION.md).
+Measured end to end through the API on **all 160 files** (152 valid documents with 181 invoices, plus 8 invalid files), on the free Gemini tier with `gemini-3.5-flash-lite`. Full report: [docs/EVALUATION.md](docs/EVALUATION.md).
 
 | Metric | Value |
 |---|---|
-| Field accuracy (8 fields, micro-avg) | 100.0% (35 invoices) |
-| Line-item F1 | 100.0% (118 of 118 items) |
-| Hallucination rate (value where none exists) | 0.0% (1 null field in the subset) |
-| Validation precision / recall | 100.0% / 100.0% (3 injected faults found) |
-| Duplicate detection recall | not measured in the subset |
-| Document success rate / failure rate | 100.0% / 0.0% (12 valid documents) |
-| Corrupted files handled gracefully | 8 / 8 |
-| Median processing time per document | 2.76 s (p95 4.50 s) |
-| 1000-page PDF | not measured |
+| Field accuracy (8 fields, micro-avg) | 99.9% (the one miss is a ground-truth labelling error) |
+| Invoice date / amounts / invoice number | 100% / 100% / 100% |
+| Line-item F1 | 99.7% |
+| Hallucination rate (value where none exists) | 0.0% |
+| Validation precision / recall | 100% / 100% (11 injected faults, 0 false flags) |
+| Duplicate detection | 29 / 29 groups, 0 false flags |
+| Cross-verification pairs | 2 / 2 correct |
+| Document success rate / failure rate | 100% / 0% |
+| Corrupted or invalid files handled gracefully | 8 / 8 |
+| Median processing time per document | 3.3 s (p95 10.6 s); whole 160-file run 6 min 24 s |
+| 1000-page PDF | parse + segmentation 0.7–1.5 s, 499 / 499 invoices found (LLM stage not run) |
 
 ## Tests
 

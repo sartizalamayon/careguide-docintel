@@ -1,6 +1,6 @@
-........................................................................ [ 38%]
-........................................................................ [ 76%]
-............................................                             [100%]
+........................................................................ [ 35%]
+........................................................................ [ 70%]
+............................................................             [100%]
 ================================ tests coverage ================================
 _______________ coverage: platform linux, python 3.12.3-final-0 ________________
 
@@ -14,7 +14,7 @@ app/api/documents.py             199     33    83%
 app/api/invoices.py              193     40    79%
 app/api/search.py                 83      6    93%
 app/api/system.py                 42      7    83%
-app/config.py                     33      0   100%
+app/config.py                     36      0   100%
 app/db.py                         23      3    87%
 app/errors.py                     53      7    87%
 app/log.py                         7      0   100%
@@ -23,12 +23,12 @@ app/models.py                    149      0   100%
 app/pipeline/__init__.py           0      0   100%
 app/pipeline/crosscheck.py        99      1    99%
 app/pipeline/embeddings.py        22      0   100%
-app/pipeline/extract.py          171      3    98%
+app/pipeline/extract.py          195      3    98%
 app/pipeline/filetypes.py         35      3    91%
 app/pipeline/images.py            56      0   100%
 app/pipeline/layout.py            57      2    96%
-app/pipeline/llm.py              108      1    99%
-app/pipeline/normalize.py        105     13    88%
+app/pipeline/llm.py              136      4    97%
+app/pipeline/normalize.py        105     12    89%
 app/pipeline/ocr.py               72      0   100%
 app/pipeline/orchestrator.py     241     17    93%
 app/pipeline/pdf.py               78      1    99%
@@ -42,5 +42,5 @@ app/security.py                    8      0   100%
 app/storage.py                    59      0   100%
 app/worker.py                     21      1    95%
 --------------------------------------------------
-TOTAL                           2703    156    94%
-188 passed in 49.16s
+TOTAL                           2758    158    94%
+204 passed in 36.40s

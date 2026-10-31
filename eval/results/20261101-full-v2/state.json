@@ -1,0 +1,1907 @@
+{
+ "docs": {
+  "syn-digital_00": {
+   "document_id": "bd7ccdf2-826b-4d1c-84b1-c3e5b862a41c",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.598436,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 3.9825615882873535
+   }
+  },
+  "syn-digital_01": {
+   "document_id": "b5cd0d4b-0829-4ecf-b11f-9626386c4444",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.598436,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 3.9869353771209717
+   }
+  },
+  "syn-digital_02": {
+   "document_id": "7835a495-aad9-4f23-83bc-7816eec8cb75",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.598436,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 6.571649551391602
+   }
+  },
+  "syn-digital_03": {
+   "document_id": "2d87322e-dbd1-4efe-a45b-d62217a09dc3",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.598436,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 6.575861215591431
+   }
+  },
+  "syn-digital_04": {
+   "document_id": "62b419f5-3e0b-47d6-8a75-8a394534576b",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.598436,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 9.163545846939087
+   }
+  },
+  "syn-digital_05": {
+   "document_id": "6ad23a3e-afe3-4f7c-aee5-32bc7af4e189",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.6718879,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 9.096623659133911
+   }
+  },
+  "syn-digital_06": {
+   "document_id": "253bdadf-a6e9-4278-89f8-ad4ddf21994e",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.6718879,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 9.104375839233398
+   }
+  },
+  "syn-digital_07": {
+   "document_id": "eaf4c531-7b74-4836-9dc4-5de8d41321f9",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.6718879,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 9.110944271087646
+   }
+  },
+  "syn-digital_08": {
+   "document_id": "d417e8b9-2e4c-4d30-a01c-d7756ed79bd0",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.6718879,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 11.828429222106934
+   }
+  },
+  "syn-digital_09": {
+   "document_id": "cb932c77-dad7-4367-a3fb-cc90effffa68",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.6718879,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 11.832220554351807
+   }
+  },
+  "syn-digital_10": {
+   "document_id": "1ca90e8d-dc0f-4997-b9f5-961a70e290f9",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.7111208,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 14.343683958053589
+   }
+  },
+  "syn-digital_11": {
+   "document_id": "ff2f0a73-b4f5-41e4-855c-74b68c10fa7b",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.7111208,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 14.348201513290405
+   }
+  },
+  "syn-digital_12": {
+   "document_id": "cc438fde-3777-46c8-b7b1-06c6039fd38b",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.7111208,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 16.841883897781372
+   }
+  },
+  "syn-digital_13": {
+   "document_id": "b13749a3-fdf8-419c-8a1e-2fd16b1ca35f",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.7111208,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 14.354517221450806
+   }
+  },
+  "syn-digital_14": {
+   "document_id": "b003d28d-010b-4386-b5f5-016c78f58734",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.7111208,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 16.846170663833618
+   }
+  },
+  "syn-digital_15": {
+   "document_id": "847266e2-2840-4bc4-ac94-ec4ebbcb7617",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.757143,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 16.803579807281494
+   }
+  },
+  "syn-digital_16": {
+   "document_id": "2ea97779-8c14-46e1-9529-6fca0a5bede2",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.757143,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 19.323995351791382
+   }
+  },
+  "syn-digital_17": {
+   "document_id": "293e6caa-bdf1-48ea-9b94-56298b041e88",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.757143,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 19.327918529510498
+   }
+  },
+  "syn-digital_18": {
+   "document_id": "b850a129-a957-41cd-a9b5-46410c70f592",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.757143,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 26.9462993144989
+   }
+  },
+  "syn-digital_19": {
+   "document_id": "3657dfba-78f8-421d-97c0-d836726d332a",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.757143,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 24.389729022979736
+   }
+  },
+  "syn-multipage_00": {
+   "document_id": "8b8890b4-dcb5-4fb5-8eac-39c17047846c",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.785808,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 2,
+    "pages_total": 2,
+    "wall_s": 29.45750379562378
+   }
+  },
+  "syn-multipage_01": {
+   "document_id": "a7088f31-7fa7-4ddc-b4f2-a168121e20e6",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.785808,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 3,
+    "pages_total": 3,
+    "wall_s": 39.777199029922485
+   }
+  },
+  "syn-multipage_02": {
+   "document_id": "aea2cec7-7425-4aa0-8c04-9369619e4b2f",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.785808,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 2,
+    "pages_total": 2,
+    "wall_s": 42.288514852523804
+   }
+  },
+  "syn-multipage_03": {
+   "document_id": "16707787-6760-4a4c-89ed-07a55ad0f092",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.785808,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 2,
+    "pages_total": 2,
+    "wall_s": 54.926955461502075
+   }
+  },
+  "syn-scanned_00": {
+   "document_id": "1e7d8e80-292a-4abe-a6a6-0c5c9c12da00",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.785808,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 54.93535041809082
+   }
+  },
+  "syn-scanned_01": {
+   "document_id": "31c6c7f5-2aa4-477f-96ca-0f20ae4b9eb4",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.8187137,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 65.21441221237183
+   }
+  },
+  "syn-scanned_02": {
+   "document_id": "4be1ecd3-b32c-4c7e-a88d-63189b8cfcae",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.8187137,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 65.219318151474
+   }
+  },
+  "syn-scanned_03": {
+   "document_id": "c6e14371-98ab-420c-9eb2-da8356359d29",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.8187137,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 67.79472756385803
+   }
+  },
+  "syn-scanned_04": {
+   "document_id": "53c914fc-442e-46b0-8af8-731e7ba5f0e8",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.8187137,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 67.79936528205872
+   }
+  },
+  "syn-scanned_05": {
+   "document_id": "1ee791c6-0ebe-4ed3-8bc7-b2c75355cff2",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.8187137,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 70.2501380443573
+   }
+  },
+  "syn-scanned_06": {
+   "document_id": "190933cf-e120-4488-ab6a-935ae313319b",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.871126,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 72.77185082435608
+   }
+  },
+  "syn-scanned_07": {
+   "document_id": "30dec96e-cc5a-423d-a7ae-0b91dffe224e",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.871126,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 2,
+    "pages_total": 2,
+    "wall_s": 78.00186800956726
+   }
+  },
+  "syn-clean_00": {
+   "document_id": "5ec89170-00e8-44f8-8fb7-7a6317458767",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.871126,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 72.7857174873352
+   }
+  },
+  "syn-clean_01": {
+   "document_id": "02b1624c-73ed-478e-8c08-437ea9952dcc",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.871126,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 78.0110375881195
+   }
+  },
+  "syn-clean_02": {
+   "document_id": "38b43f56-499a-4665-8b0f-2d2fdd40926c",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.871126,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 78.02058434486389
+   }
+  },
+  "syn-clean_03": {
+   "document_id": "ad106be5-e4c7-4727-97f6-d4ed34146027",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.9159882,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 80.51201438903809
+   }
+  },
+  "syn-photo_00": {
+   "document_id": "ae1d5e93-c7b0-401b-8ba5-7db6eebdb986",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.9159882,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 85.74741506576538
+   }
+  },
+  "syn-photo_01": {
+   "document_id": "8a37b632-4692-4518-96c8-968220be18c2",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.9159882,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 82.95020127296448
+   }
+  },
+  "syn-photo_02": {
+   "document_id": "567319c5-4e33-4865-8551-e23334f5b13f",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.9159882,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 88.10802459716797
+   }
+  },
+  "syn-photo_03": {
+   "document_id": "aee08e89-6031-4052-a9f1-e9a9832b1843",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.9159882,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 90.55078959465027
+   }
+  },
+  "syn-scan_00": {
+   "document_id": "d96add7e-10dc-4863-92e0-319cb9b78e29",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.9756644,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 92.91158175468445
+   }
+  },
+  "syn-scan_01": {
+   "document_id": "6d1199b5-4032-4968-b0c5-686b83899471",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.9756644,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 95.2831802368164
+   }
+  },
+  "syn-scan_02": {
+   "document_id": "90ac3a6b-19b1-4e21-8941-6a55839d1e6f",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.9756644,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 2,
+    "pages_total": 2,
+    "wall_s": 100.1688084602356
+   }
+  },
+  "syn-ap_register_2025": {
+   "document_id": "bc7bf173-a3e0-443f-ae3c-c45f0c5f2a01",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.9756644,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 3,
+    "pages_total": 3,
+    "wall_s": 97.69651937484741
+   }
+  },
+  "syn-supplier_ledger": {
+   "document_id": "5d571e2e-7a08-4184-9122-981cfbf14248",
+   "rejected_code": null,
+   "uploaded_at": 1793477874.9756644,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 97.71080708503723
+   }
+  },
+  "syn-erp_export_eu": {
+   "document_id": "899994dc-da28-48fc-a4c4-c69911b69d7f",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.1011784,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 100.05023169517517
+   }
+  },
+  "syn-invoice_layout_00": {
+   "document_id": "2e9b387c-b54e-4bd0-8fe1-49674ccd2797",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.1011784,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 139.7180368900299
+   }
+  },
+  "syn-invoice_layout_01": {
+   "document_id": "94b23b4c-2a8d-476e-ad0c-70d3744e3584",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.1011784,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 139.72405576705933
+   }
+  },
+  "syn-batch_5_invoices": {
+   "document_id": "22cefdb6-0e68-4af3-90bb-1b562d091cfd",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.1011784,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 5,
+    "pages_total": 5,
+    "wall_s": 144.71817779541016
+   }
+  },
+  "syn-erp_export": {
+   "document_id": "3d284538-6171-4d68-b0a5-536f17951034",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.1011784,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 139.73474264144897
+   }
+  },
+  "syn-pdfpair_original": {
+   "document_id": "5a18aaa6-6717-407d-9ce7-754a0b7dd188",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.146479,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 2,
+    "pages_total": 2,
+    "wall_s": 144.68092799186707
+   }
+  },
+  "syn-pdfpair_received_scan": {
+   "document_id": "d53e1526-2884-43ac-8ac6-e476581a3f4f",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.146479,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 2,
+    "pages_total": 2,
+    "wall_s": 149.59952020645142
+   }
+  },
+  "syn-zero_bytes": {
+   "document_id": null,
+   "rejected_code": "EMPTY_FILE",
+   "uploaded_at": 1793477875.146479,
+   "final": null
+  },
+  "syn-not_really_a": {
+   "document_id": null,
+   "rejected_code": "FILE_TYPE_MISMATCH",
+   "uploaded_at": 1793477875.146479,
+   "final": null
+  },
+  "syn-unsupported": {
+   "document_id": null,
+   "rejected_code": "UNSUPPORTED_FILE_TYPE",
+   "uploaded_at": 1793477875.146479,
+   "final": null
+  },
+  "syn-broken_body": {
+   "document_id": "5dc9a8c8-eeb8-4342-9493-a37e058f0e94",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.1670284,
+   "final": {
+    "status": "failed",
+    "error_code": "CORRUPTED_FILE",
+    "pages_done": 0,
+    "pages_total": null,
+    "wall_s": 144.6752815246582
+   }
+  },
+  "syn-password_protected": {
+   "document_id": "1056fa21-cce4-42dd-a976-6e6b6261539d",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.1670284,
+   "final": {
+    "status": "failed",
+    "error_code": "ENCRYPTED_FILE",
+    "pages_done": 0,
+    "pages_total": null,
+    "wall_s": 144.67833280563354
+   }
+  },
+  "syn-corrupt_workbook": {
+   "document_id": "4ff754c4-e8cf-4793-9d2f-883e906a003f",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.1670284,
+   "final": {
+    "status": "failed",
+    "error_code": "CORRUPTED_FILE",
+    "pages_done": 0,
+    "pages_total": null,
+    "wall_s": 144.68480014801025
+   }
+  },
+  "syn-blank_page": {
+   "document_id": "a4188702-2712-40f8-9412-885c73b02c53",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.1670284,
+   "final": {
+    "status": "failed",
+    "error_code": "NO_CONTENT",
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 144.6909601688385
+   }
+  },
+  "syn-header_only": {
+   "document_id": "adc5d676-338c-4fc1-bf23-896863869d69",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.1670284,
+   "final": {
+    "status": "failed",
+    "error_code": "NO_CONTENT",
+    "pages_done": 0,
+    "pages_total": null,
+    "wall_s": 144.69687366485596
+   }
+  },
+  "kat-test_00": {
+   "document_id": "e327c8f2-498a-452c-955f-7fe17fafbd04",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.1949716,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 147.16572451591492
+   }
+  },
+  "kat-test_00-degraded": {
+   "document_id": "36a886eb-1c00-4679-a37a-69a9e01fe184",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.1949716,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 149.55399990081787
+   }
+  },
+  "kat-test_01": {
+   "document_id": "917a8509-d446-4215-8a3f-a765d291bb46",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.1949716,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 151.82257771492004
+   }
+  },
+  "kat-test_02": {
+   "document_id": "deb63c32-df4e-47e4-afe1-bb717c9ae032",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.1949716,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 151.82736086845398
+   }
+  },
+  "kat-test_03": {
+   "document_id": "eabe1018-a52c-49a4-ae3c-0cb085dc79c2",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.1949716,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 154.13747692108154
+   }
+  },
+  "kat-test_03-degraded": {
+   "document_id": "6bacd378-f97b-45f4-9920-ff93b0883870",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.2369912,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 156.48837208747864
+   }
+  },
+  "kat-test_04": {
+   "document_id": "7361bae7-b534-4b9e-b770-c956fc63d643",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.2369912,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 158.90541625022888
+   }
+  },
+  "kat-test_05": {
+   "document_id": "5f057a64-9ca2-4bbf-b496-c2746ecbcb3f",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.2369912,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 165.95818972587585
+   }
+  },
+  "kat-test_06": {
+   "document_id": "9eb9e27c-95d1-42aa-a203-72578457cc0b",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.2369912,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 168.26824975013733
+   }
+  },
+  "kat-test_06-degraded": {
+   "document_id": "476c6e8f-f6b0-4ad8-914f-6c29189f707b",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.2369912,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 175.40855407714844
+   }
+  },
+  "kat-test_07": {
+   "document_id": "0a4a9902-f375-4079-b327-e512709317a3",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.2872357,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 177.70783734321594
+   }
+  },
+  "kat-test_08": {
+   "document_id": "0ee86b83-afb7-483a-b5d6-705deae74992",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.2872357,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 184.92616033554077
+   }
+  },
+  "kat-test_09": {
+   "document_id": "0b0a21f3-e639-433b-93e0-9005a29cb6eb",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.2872357,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 184.9305021762848
+   }
+  },
+  "kat-test_09-degraded": {
+   "document_id": "efafe27b-d900-4fe6-9658-715e35cb0612",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.2872357,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 187.41214990615845
+   }
+  },
+  "kat-test_10": {
+   "document_id": "b137665d-0c14-4374-aabd-80cb6eb15a3c",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.2872357,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 189.66748762130737
+   }
+  },
+  "kat-test_11": {
+   "document_id": "b4228668-4f04-4014-afd8-bdf2e20fea6e",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.3310504,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 189.628436088562
+   }
+  },
+  "kat-test_12": {
+   "document_id": "d7dd3a0d-2e42-42a1-9e3b-5f3a31c1b065",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.3310504,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 191.97812461853027
+   }
+  },
+  "kat-test_12-degraded": {
+   "document_id": "d5646459-1f9c-417f-ad7a-ed4a2a777f9c",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.3310504,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 191.9821276664734
+   }
+  },
+  "kat-test_13": {
+   "document_id": "2caa3835-ee33-4f00-8d8c-1c1d73bcfcc2",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.3310504,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 194.3914909362793
+   }
+  },
+  "kat-test_14": {
+   "document_id": "d2474681-fede-44bb-8a24-1959fc2c2b8d",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.3310504,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 196.9777126312256
+   }
+  },
+  "kat-test_15": {
+   "document_id": "20bebb96-c4c5-407f-b713-78dcdd275bba",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.3775208,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 196.93487191200256
+   }
+  },
+  "kat-test_15-degraded": {
+   "document_id": "3856b01a-2fc2-4461-9d0f-727d250c6929",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.3775208,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 199.37089037895203
+   }
+  },
+  "kat-test_16": {
+   "document_id": "70bd5851-31ff-423e-91e8-c6ac63c4b061",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.3775208,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 201.6905117034912
+   }
+  },
+  "kat-test_17": {
+   "document_id": "666c0b76-3ac0-4119-8df6-128717e35e38",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.3775208,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 201.69542121887207
+   }
+  },
+  "kat-test_18": {
+   "document_id": "4f3067de-df9d-4094-b4cb-8f05bd1807b4",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.3775208,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 203.9907329082489
+   }
+  },
+  "kat-test_18-degraded": {
+   "document_id": "27d74157-f06b-412c-be44-3cad8161a707",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.42201,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 203.95027685165405
+   }
+  },
+  "kat-test_19": {
+   "document_id": "8082db3d-6a10-45d7-9300-a8523813a23f",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.42201,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 206.2594017982483
+   }
+  },
+  "kat-test_20": {
+   "document_id": "7627a347-970c-4cba-9d2a-d097025e3f7b",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.42201,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 208.62131071090698
+   }
+  },
+  "kat-test_21": {
+   "document_id": "a94613eb-5ee9-49d1-968d-da5baad96a9a",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.42201,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 217.7696180343628
+   }
+  },
+  "kat-test_21-degraded": {
+   "document_id": "a0b420ca-146d-4df0-a219-81b92887d7ea",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.42201,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 217.77277159690857
+   }
+  },
+  "kat-test_22": {
+   "document_id": "0d3801a3-8ae9-4eba-8e57-961dcd9bd9d9",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.4765086,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 226.77255606651306
+   }
+  },
+  "kat-test_23": {
+   "document_id": "32d5a544-6be4-44d1-b3c8-bc925f0efc2f",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.4765086,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 231.2299838066101
+   }
+  },
+  "kat-test_24": {
+   "document_id": "8501ea36-10ac-4477-a880-a67df9cb9ebe",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.4765086,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 229.05099773406982
+   }
+  },
+  "kat-test_24-degraded": {
+   "document_id": "e8d00a66-675c-46b3-be14-b940d4c8cf43",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.4765086,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 240.2878861427307
+   }
+  },
+  "kat-test_25": {
+   "document_id": "7a44e3d1-d926-421b-a22e-c53739430447",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.4765086,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 233.4842529296875
+   }
+  },
+  "kat-validation_00": {
+   "document_id": "2f81da28-ef58-4a4a-90b6-486f2487bcd8",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.5136766,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 237.97875118255615
+   }
+  },
+  "kat-validation_00-degraded": {
+   "document_id": "313fe2c0-2d46-4b09-8580-4e177b7e255a",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.5136766,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 242.48367381095886
+   }
+  },
+  "kat-validation_02": {
+   "document_id": "fde6a4fb-6a30-41de-be3f-998dcb2c9f8e",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.5136766,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 242.48858904838562
+   }
+  },
+  "kat-validation_03": {
+   "document_id": "b0408c56-7c2b-4d37-8b7e-1afc32a4de2b",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.5136766,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 244.709947347641
+   }
+  },
+  "kat-validation_03-degraded": {
+   "document_id": "1109d990-fe14-472b-a71c-c925eace07c9",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.5136766,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 246.91774678230286
+   }
+  },
+  "kat-validation_04": {
+   "document_id": "2e095f9b-0842-4e39-b06c-d7468d89c70d",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.5612204,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 246.87454795837402
+   }
+  },
+  "kat-validation_05": {
+   "document_id": "ca0c07db-0e4e-4033-a199-6494a10dcb0d",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.5612204,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 249.09866070747375
+   }
+  },
+  "kat-validation_06": {
+   "document_id": "67bcfbcb-b704-4151-b765-f56f502cf4e1",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.5612204,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 251.31389546394348
+   }
+  },
+  "kat-validation_06-degraded": {
+   "document_id": "387326df-b73a-4ce7-b6b3-fb880a488aa8",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.5612204,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 253.52430629730225
+   }
+  },
+  "kat-validation_07": {
+   "document_id": "fc148bcb-c152-478e-84eb-c6a31e94bda3",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.5612204,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 253.52775406837463
+   }
+  },
+  "kat-validation_08": {
+   "document_id": "2489794e-174f-41b2-b727-86eec7c92a14",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.5980535,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 255.6748402118683
+   }
+  },
+  "kat-validation_09": {
+   "document_id": "fc434d58-33a9-4cc9-9b7e-b3a69c93c8da",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.5980535,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 257.87743616104126
+   }
+  },
+  "kat-validation_09-degraded": {
+   "document_id": "6b981308-8408-4cea-8857-8f4b09704ecd",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.5980535,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 257.88092732429504
+   }
+  },
+  "kat-validation_10": {
+   "document_id": "5d3cdd76-0682-4107-b4b4-c782214f1232",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.5980535,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 260.05805683135986
+   }
+  },
+  "kat-validation_11": {
+   "document_id": "9ffada29-9dc9-463f-8714-2ad9a5bde366",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.5980535,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 262.22826313972473
+   }
+  },
+  "kat-validation_12": {
+   "document_id": "8214651d-24c5-4909-94c0-5f5317080b68",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.6463122,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 264.33098006248474
+   }
+  },
+  "kat-validation_12-degraded": {
+   "document_id": "07e4128b-ea1b-4b08-b423-343fa597fc6e",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.6463122,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 268.7680342197418
+   }
+  },
+  "kat-validation_13": {
+   "document_id": "e134e7d2-4543-452f-a8a6-ea02b0d38e45",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.6463122,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 266.606835603714
+   }
+  },
+  "kat-validation_14": {
+   "document_id": "5a8aaf13-b2b6-4e07-87b9-38029bf35d26",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.6463122,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 270.93812465667725
+   }
+  },
+  "kat-validation_15": {
+   "document_id": "ee195669-eaca-4689-90d4-160073b9ac3a",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.6463122,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 277.52580666542053
+   }
+  },
+  "kat-validation_15-degraded": {
+   "document_id": "5e0d129f-2b9f-462c-914b-fb620beb46db",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.6953952,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 273.0973951816559
+   }
+  },
+  "kat-validation_16": {
+   "document_id": "3fbb700b-c14f-484b-9065-df3fb5e86861",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.6953952,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 283.9979598522186
+   }
+  },
+  "kat-validation_17": {
+   "document_id": "a64c873d-43ce-4eee-bb46-bfad2d2951ff",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.6953952,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 288.3282005786896
+   }
+  },
+  "kat-validation_18": {
+   "document_id": "05a5403a-ac25-47e0-a2b7-cc74186de014",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.6953952,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 292.6160583496094
+   }
+  },
+  "kat-validation_18-degraded": {
+   "document_id": "533a7e09-2352-4186-a91a-a505fbc4a5b9",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.6953952,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 299.05977845191956
+   }
+  },
+  "kat-validation_19": {
+   "document_id": "5e12def5-a39f-4113-83a1-18c3b668e4aa",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.7410383,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 301.13116431236267
+   }
+  },
+  "kat-validation_20": {
+   "document_id": "debaea53-2733-4954-85f4-8d876885c160",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.7410383,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 303.28011107444763
+   }
+  },
+  "kat-validation_21": {
+   "document_id": "5b19bd77-ce2a-4e46-95ca-70c603e3d725",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.7410383,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 307.59097480773926
+   }
+  },
+  "kat-validation_21-degraded": {
+   "document_id": "80a05b07-cf91-4dc7-8eec-8193264ba362",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.7410383,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 307.5973970890045
+   }
+  },
+  "kat-validation_22": {
+   "document_id": "0d362e19-c964-42bf-a06a-582705c7bd99",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.7410383,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 309.7538950443268
+   }
+  },
+  "kat-validation_23": {
+   "document_id": "cb676704-e1a6-46ef-aa03-a27efc976c68",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.7845001,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 309.7144865989685
+   }
+  },
+  "kat-validation_24": {
+   "document_id": "91f188ee-1e56-4a87-a821-3bec74678bc1",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.7845001,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 311.83624362945557
+   }
+  },
+  "kat-validation_24-degraded": {
+   "document_id": "5403de51-dfd0-4bb2-ad51-73e870e7b881",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.7845001,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 311.8445177078247
+   }
+  },
+  "kat-validation_25": {
+   "document_id": "e160bed6-3485-4099-9edd-9256d3c1323e",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.7845001,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 316.1694450378418
+   }
+  },
+  "kat-validation_26": {
+   "document_id": "7e38f188-e302-4957-ac16-e6ac2ba9c17a",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.7845001,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 316.17904448509216
+   }
+  },
+  "kat-validation_27": {
+   "document_id": "6d7cef95-f0b6-454a-b396-6827e4bb581f",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.820367,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 318.2842195034027
+   }
+  },
+  "kat-validation_27-degraded": {
+   "document_id": "bbd6c351-6ccc-432d-bfdc-b27246625490",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.820367,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 318.29091572761536
+   }
+  },
+  "kat-validation_28": {
+   "document_id": "fbc427c1-a00c-4c1e-bd93-7cf176795d41",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.820367,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 322.53079295158386
+   }
+  },
+  "kat-validation_30": {
+   "document_id": "6de4a168-9a71-47b9-b893-8955cd9d6a8a",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.820367,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 322.53679299354553
+   }
+  },
+  "kat-validation_30-degraded": {
+   "document_id": "e6cef04f-f535-4fb8-ba42-22cf1ddcf567",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.820367,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 326.79903960227966
+   }
+  },
+  "kat-validation_31": {
+   "document_id": "7dad2eaf-3d8f-4db1-a0c8-4e7d62ff2aa1",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.8561316,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 326.77246141433716
+   }
+  },
+  "kat-validation_32": {
+   "document_id": "22ec3098-be98-4984-b0c0-11dd6086514a",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.8561316,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 328.8680114746094
+   }
+  },
+  "kat-validation_33": {
+   "document_id": "141a2eed-60d8-4afe-af11-18c6f3ae07f4",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.8561316,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 328.8728246688843
+   }
+  },
+  "kat-validation_33-degraded": {
+   "document_id": "09b0c4be-12a7-415a-8658-c0e8ef24f65a",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.8561316,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 337.2356662750244
+   }
+  },
+  "kat-validation_34": {
+   "document_id": "9a6f0be0-7168-412a-8edd-f19e711d09ad",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.8561316,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 333.0678560733795
+   }
+  },
+  "kat-validation_35": {
+   "document_id": "f418851c-53d4-4e52-8597-780f3fa591b3",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.8866956,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 335.12784481048584
+   }
+  },
+  "kat-validation_36": {
+   "document_id": "d59905f5-e6e2-4ad1-b8f9-8eb6d4e18430",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.8866956,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 345.513525724411
+   }
+  },
+  "kat-validation_36-degraded": {
+   "document_id": "a3a43646-585a-4094-93db-85938e437bb3",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.8866956,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 347.61282992362976
+   }
+  },
+  "kat-validation_37": {
+   "document_id": "a16e4130-2416-4424-95eb-e3ee563a8e5d",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.8866956,
+   "final": {
+    "status": "completed",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 353.8511891365051
+   }
+  },
+  "kat-validation_38": {
+   "document_id": "e4445aaf-f1d4-4ba8-a461-377ee9253f13",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.8866956,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 355.9330792427063
+   }
+  },
+  "kat-validation_39": {
+   "document_id": "d7a11a93-7496-432c-9047-311ff4825534",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.9239297,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 364.1380913257599
+   }
+  },
+  "kat-validation_39-degraded": {
+   "document_id": "756e4268-ab02-45a9-a62e-870db0d21884",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.9239297,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 366.2125518321991
+   }
+  },
+  "kat-validation_40": {
+   "document_id": "54472d9f-a4e1-4082-bb1c-4949ab8c9bcc",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.9239297,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 366.21839690208435
+   }
+  },
+  "kat-validation_41": {
+   "document_id": "fd101aae-732d-4d88-9d9f-c8c39c899c11",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.9239297,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 368.2821774482727
+   }
+  },
+  "kat-validation_42": {
+   "document_id": "782c2da5-407e-4c1c-a621-240918b6a0f0",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.9239297,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 368.2908670902252
+   }
+  },
+  "kat-validation_42-degraded": {
+   "document_id": "ba72b4a9-0e0d-4e1d-9260-f99e0feb652c",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.9577942,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 372.34429907798767
+   }
+  },
+  "kat-validation_43": {
+   "document_id": "e8a6e728-a409-4df8-9609-07c57a7f62ff",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.9577942,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 370.3067650794983
+   }
+  },
+  "kat-validation_44": {
+   "document_id": "a9cd6284-b681-4216-9836-6328c77406e5",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.9577942,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 374.39051127433777
+   }
+  },
+  "kat-validation_45": {
+   "document_id": "5804dfd0-1a79-45c4-a33b-12c81ce6a95b",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.9577942,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 374.3936958312988
+   }
+  },
+  "kat-validation_45-degraded": {
+   "document_id": "d9dfb18a-b544-451f-bdd4-28b7dbc4ea29",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.9577942,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 378.46343779563904
+   }
+  },
+  "kat-validation_46": {
+   "document_id": "879a692e-b2fc-4f17-8c5d-d0b428401a00",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.9966786,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 378.43250703811646
+   }
+  },
+  "kat-validation_47": {
+   "document_id": "705a08ca-fe3b-4360-ad95-b40020e2f420",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.9966786,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 380.48055124282837
+   }
+  },
+  "kat-validation_48": {
+   "document_id": "d1097cd9-bad0-408f-8509-cd884e511619",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.9966786,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 382.5131561756134
+   }
+  },
+  "kat-validation_48-degraded": {
+   "document_id": "1dcbeae3-594f-4ba8-a9e2-3a4088d68af8",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.9966786,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 384.5359673500061
+   }
+  },
+  "kat-validation_49": {
+   "document_id": "be3fd03c-3761-4ea8-925c-00ca60a8de10",
+   "rejected_code": null,
+   "uploaded_at": 1793477875.9966786,
+   "final": {
+    "status": "needs_review",
+    "error_code": null,
+    "pages_done": 1,
+    "pages_total": 1,
+    "wall_s": 384.5400619506836
+   }
+  }
+ },
+ "http_5xx": 0
+}
