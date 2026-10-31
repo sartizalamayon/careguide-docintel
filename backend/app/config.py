@@ -26,9 +26,12 @@ class Settings(BaseSettings):
     LLM_BASE_URL: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
     LLM_API_KEY: str = ""
     LLM_MODEL: str = "gemini-3.8-flash"
+    LLM_FALLBACK_MODEL: str = "gemini-2.5-flash-lite"  # empty = no fallback
+    LLM_FALLBACK_BASE_URL: str = ""  # empty = LLM_BASE_URL
+    LLM_FALLBACK_API_KEY: str = ""  # empty = LLM_API_KEY
     LLM_JSON_MODE: str = "schema"  # schema | object
     LLM_CONCURRENCY: int = 4
-    LLM_TIMEOUT_S: int = 90
+    LLM_TIMEOUT_S: int = 60
     LLM_CACHE_ENABLED: bool = True
 
     # OCR / embeddings

@@ -132,18 +132,21 @@ def _error_text(exc: ValidationError) -> str:
     return "; ".join(f"{'.'.join(str(p) for p in err['loc'])}: {err['msg']}" for err in exc.errors())
 
 
-def _request_extraction(client: LlmClient, text: str) -> ExtractionResult:
-    """Extract call, validated with Pydantic; one more call with the validation error if it does not fit."""
+def _request_extraction(client: LlmClient, text: str) -> tuple[ExtractionResult, str]:
+    """Extract call, validated with Pydantic; one more call with the validation error if it does not fit.
+
+    Returns the result and the model that answered (the fallback model when the main one was unavailable).
+    """
     schema = extraction_schema()
-    data, _ = client.complete_json("extract", EXTRACT_SYSTEM, EXTRACT_USER.format(text=text), schema)
+    data, usage = client.complete_json("extract", EXTRACT_SYSTEM, EXTRACT_USER.format(text=text), schema)
     try:
-        return ExtractionResult.model_validate(data)
+        return ExtractionResult.model_validate(data), usage.get("model") or get_settings().LLM_MODEL
     except ValidationError as exc:
         log.warning("llm_schema_repair", purpose="extract", errors=len(exc.errors()))
         repair_user = REPAIR_USER.format(output=json.dumps(data), error=_error_text(exc))
-    repaired, _ = client.complete_json("extract", REPAIR_SYSTEM, repair_user, schema)
+    repaired, usage = client.complete_json("extract", REPAIR_SYSTEM, repair_user, schema)
     try:
-        return ExtractionResult.model_validate(repaired)
+        return ExtractionResult.model_validate(repaired), usage.get("model") or get_settings().LLM_MODEL
     except ValidationError as exc:
         raise ProcessingError(
             LLM_BAD_OUTPUT,
@@ -234,7 +237,9 @@ def _line_item(item: LineItemModel) -> LineItemData:
     )
 
 
-def _build_invoice(segment: Segment, result: ExtractionResult, ocr_mean_conf: float | None) -> ExtractedInvoice:
+def _build_invoice(
+    segment: Segment, result: ExtractionResult, ocr_mean_conf: float | None, model: str
+) -> ExtractedInvoice:
     factor = LOW_OCR_FACTOR if ocr_mean_conf is not None and ocr_mean_conf < LOW_OCR_CONFIDENCE else 1.0
     evidence = Evidence.of(segment.text)
     invoice = ExtractedInvoice(
@@ -242,7 +247,7 @@ def _build_invoice(segment: Segment, result: ExtractionResult, ocr_mean_conf: fl
         page_end=segment.page_end,
         raw_text=segment.text,
         extraction_method="llm",
-        llm_model=get_settings().LLM_MODEL,
+        llm_model=model,
         prompt_version=PROMPT_VERSION["extract"],
         line_items=[_line_item(item) for item in result.line_items],
     )
@@ -264,11 +269,11 @@ def extract_segment(
     segment: Segment, ocr_mean_conf: float | None, client: LlmClient | None = None
 ) -> ExtractedInvoice | None:
     """SPEC §6.8: extract one segment. None when the LLM says it is not an invoice."""
-    result = _request_extraction(client or llm.get_llm(), segment.text)
+    result, model = _request_extraction(client or llm.get_llm(), segment.text)
     if not result.is_invoice:
         log.info("stage_completed", message=f"segment p{segment.page_start}-{segment.page_end} is not an invoice")
         return None
-    invoice = _build_invoice(segment, result, ocr_mean_conf)
+    invoice = _build_invoice(segment, result, ocr_mean_conf, model)
     ungrounded = [name for name, meta in invoice.field_meta.items() if not meta["grounded"]]
     log.info("segment_extracted", page_start=segment.page_start, page_end=segment.page_end, ungrounded=ungrounded)
     return invoice

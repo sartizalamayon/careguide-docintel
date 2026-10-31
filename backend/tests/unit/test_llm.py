@@ -62,6 +62,7 @@ def settings(monkeypatch):
     s = get_settings()
     monkeypatch.setattr(s, "LLM_CACHE_ENABLED", True)
     monkeypatch.setattr(s, "LLM_JSON_MODE", "schema")
+    monkeypatch.setattr(s, "LLM_FALLBACK_MODEL", "")
     return s
 
 
@@ -103,15 +104,76 @@ def test_u25_rate_limit_twice_then_success(db, settings):
     assert len(api.requests) == 3
 
 
-def test_u25_provider_down_after_six_attempts_raises_llm_unavailable(db, settings):
-    api = FakeApi(*[openai.APIConnectionError(request=REQUEST) for _ in range(6)])
+def test_u25_provider_down_after_three_attempts_raises_llm_unavailable(db, settings):
+    api = FakeApi(*[openai.APIConnectionError(request=REQUEST) for _ in range(3)])
 
     with pytest.raises(ProcessingError) as err:
         call(LlmClient(api))
 
     assert err.value.code == LLM_UNAVAILABLE
     assert err.value.retryable
-    assert len(api.requests) == 6
+    assert len(api.requests) == 3
+
+
+def overloaded() -> openai.InternalServerError:
+    return openai.InternalServerError("overloaded", response=httpx.Response(503, request=REQUEST), body=None)
+
+
+def test_overloaded_main_model_falls_back_to_the_fallback_model(db, settings, monkeypatch):
+    monkeypatch.setattr(settings, "LLM_FALLBACK_MODEL", "fast-model")
+    main = FakeApi(overloaded(), overloaded(), overloaded())
+    fallback = FakeApi('{"total": 3.0}')
+
+    data, usage = call(LlmClient(main, fallback))
+
+    assert data == {"total": 3.0}
+    assert usage["model"] == "fast-model"
+    assert len(main.requests) == 3
+    assert fallback.requests[0]["model"] == "fast-model"
+    row = db.scalar(select(LlmCall))
+    assert row.model == "fast-model"
+
+
+def test_fallback_answer_is_served_from_the_cache_next_time(db, settings, monkeypatch):
+    monkeypatch.setattr(settings, "LLM_FALLBACK_MODEL", "fast-model")
+    main = FakeApi(overloaded(), overloaded(), overloaded())
+    fallback = FakeApi('{"total": 3.0}')
+    client = LlmClient(main, fallback)
+
+    call(client)
+    _, usage = call(client)
+
+    assert usage == {"input_tokens": 0, "output_tokens": 0, "latency_ms": 0, "cached": True, "model": "fast-model"}
+    assert len(main.requests) == 3
+
+
+def test_both_models_down_raises_llm_unavailable(db, settings, monkeypatch):
+    monkeypatch.setattr(settings, "LLM_FALLBACK_MODEL", "fast-model")
+    main = FakeApi(*[overloaded() for _ in range(3)])
+    fallback = FakeApi(*[overloaded() for _ in range(3)])
+
+    with pytest.raises(ProcessingError) as err:
+        call(LlmClient(main, fallback))
+
+    assert err.value.code == LLM_UNAVAILABLE
+    assert len(fallback.requests) == 3
+
+
+def test_bad_output_does_not_switch_to_the_fallback(db, settings, monkeypatch):
+    monkeypatch.setattr(settings, "LLM_FALLBACK_MODEL", "fast-model")
+    fallback = FakeApi('{"total": 3.0}')
+
+    with pytest.raises(ProcessingError) as err:
+        call(LlmClient(FakeApi("{nope", "still nope"), fallback))
+
+    assert err.value.code == LLM_BAD_OUTPUT
+    assert fallback.requests == []
+
+
+def test_fallback_equal_to_main_model_is_ignored(db, settings, monkeypatch):
+    monkeypatch.setattr(settings, "LLM_FALLBACK_MODEL", settings.LLM_MODEL)
+
+    assert LlmClient(FakeApi())._routes(None) == [(settings.LLM_MODEL, "main")]
 
 
 def test_u26_same_input_twice_is_served_from_the_cache(db, settings):

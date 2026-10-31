@@ -133,9 +133,11 @@ All settings live in `backend/app/config.py` (pydantic-settings, already written
 | `LLM_BASE_URL` | `https://generativelanguage.googleapis.com/v1beta/openai/` | |
 | `LLM_API_KEY` | (required for extraction) | |
 | `LLM_MODEL` | `gemini-3.8-flash` | |
+| `LLM_FALLBACK_MODEL` | `gemini-2.5-flash-lite` | tried when `LLM_MODEL` is still unavailable after 3 attempts. Empty = no fallback |
+| `LLM_FALLBACK_BASE_URL` / `LLM_FALLBACK_API_KEY` | empty | empty = same as `LLM_BASE_URL` / `LLM_API_KEY` (e.g. set them for Groq) |
 | `LLM_JSON_MODE` | `schema` | `schema` = response_format json_schema. `object` = json_object fallback |
 | `LLM_CONCURRENCY` | 4 | parallel LLM calls per document |
-| `LLM_TIMEOUT_S` | 90 | |
+| `LLM_TIMEOUT_S` | 60 | |
 | `LLM_CACHE_ENABLED` | true | |
 | `OCR_THREADS` | 4 | parallel OCR pages per document |
 | `OCR_DPI` | 300 | render DPI for scanned PDF pages |
@@ -283,7 +285,7 @@ Segment text = page texts joined with `\n\n----- page {n} -----\n\n`. If it is l
 - `complete_json(purpose, system, user, schema: dict, model) -> (dict, usage)`:
   1. `key = sha256(f"{model}|{PROMPT_VERSION[purpose]}|{purpose}|{system}|{user}")`. If `LLM_CACHE_ENABLED` and `llm_calls.cache_key == key` exists → return the cached response.
   2. Call `client.chat.completions.create(model, messages=[system, user], temperature=0, response_format={"type":"json_schema","json_schema":{"name":purpose,"schema":schema,"strict":True}})`. If `LLM_JSON_MODE=object`, use `{"type":"json_object"}` and append `"Return JSON matching this schema: <schema>"` to the system prompt instead. If the provider answers 400 `BadRequestError` to a `json_schema` request (some providers reject `anyOf`/strict schemas), log a warning once and use object mode for the rest of the process. Pydantic validation still enforces the schema.
-  3. Retry with `tenacity` on `RateLimitError`, `APITimeoutError`, `APIConnectionError` and `InternalServerError`: `wait_exponential(multiplier=2, min=2, max=60)`, `stop_after_attempt(6)`. On final failure raise `ProcessingError("LLM_UNAVAILABLE", retryable=True)`.
+  3. Retry with `tenacity` on `RateLimitError`, `APITimeoutError`, `APIConnectionError` and `InternalServerError`: `wait_exponential(multiplier=2, min=2, max=8)`, `stop_after_attempt(3)`. Then the same request goes to `LLM_FALLBACK_MODEL` with the same budget. If that also fails raise `ProcessingError("LLM_UNAVAILABLE", retryable=True)`. The invoice's `llm_model` records the model that answered.
   4. Parse `choices[0].message.content` with `json.loads` (strip surrounding ``` fences first) and validate it with the Pydantic model. On failure, make ONE repair call that sends the bad output plus the validation error and asks for corrected JSON. If that also fails → `ProcessingError("LLM_BAD_OUTPUT", retryable=True)`.
   5. Insert an `llm_calls` row (tokens from `usage`, latency).
 - Tests use `FakeLLM` (`tests/conftest.py`), injected through a module-level `get_llm()` factory that tests monkeypatch. Do not put mock code in `app/`.
