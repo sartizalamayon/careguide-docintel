@@ -34,6 +34,21 @@ export function humanize(text: string | null): string {
   return spaced.charAt(0).toUpperCase() + spaced.slice(1);
 }
 
+const STAGE_LABELS: Record<string, string> = {
+  parsing: "Reading pages",
+  ocr: "Reading scanned pages (OCR)",
+  segmenting: "Finding invoices",
+  extracting: "Extracting fields with AI, this can take a minute",
+  validating: "Checking totals and rules",
+  indexing: "Making it searchable",
+};
+
+/** Plain-language label for a pipeline stage; empty when there is no stage yet. */
+export function stageLabel(stage: string | null | undefined): string {
+  if (!stage) return "";
+  return STAGE_LABELS[stage] ?? humanize(stage);
+}
+
 export function plural(count: number, one: string, many = `${one}s`): string {
   return `${count} ${count === 1 ? one : many}`;
 }

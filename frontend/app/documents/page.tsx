@@ -16,7 +16,7 @@ import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { api, errorMessage, pollWhileActive } from "@/lib/api";
-import { formatDateTime, formatSeconds, plural } from "@/lib/format";
+import { formatDateTime, formatSeconds, plural, stageLabel } from "@/lib/format";
 import type { DocStatus, FileType } from "@/lib/types";
 
 const PAGE_SIZE = 20;
@@ -116,7 +116,7 @@ export default function DocumentsPage() {
                 <TableCell className="uppercase">{d.file_type}</TableCell>
                 <TableCell>{d.pages_done}/{d.pages_total ?? "?"}</TableCell>
                 <TableCell><StatusBadge status={d.status} /></TableCell>
-                <TableCell><Progress value={d.progress} className="h-1.5" /></TableCell>
+                <TableCell><Progress value={d.progress} className="h-1.5" />{d.status === "processing" && <div className="mt-1 text-xs text-muted-foreground">{stageLabel(d.stage) || "Waiting in queue"}</div>}</TableCell>
                 <TableCell className="text-right">{d.invoice_count}</TableCell>
                 <TableCell className="text-right">{d.issue_count}</TableCell>
                 <TableCell className="text-right">{formatSeconds(d.processing_ms)}</TableCell>

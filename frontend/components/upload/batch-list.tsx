@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { StatusBadge } from "@/components/status-badge";
 import { api, pollWhileActive } from "@/lib/api";
-import { humanize, plural } from "@/lib/format";
+import { plural, stageLabel } from "@/lib/format";
 import type { DocStatus, DocumentSummary, RejectedFile, UploadResponse } from "@/lib/types";
 
 const isStatus = (s: string): s is DocStatus => ["queued", "processing", "completed", "needs_review", "failed"].includes(s);
@@ -39,7 +39,7 @@ function BatchRow({ doc, fallback }: { doc: DocumentSummary | undefined; fallbac
       </div>
       <Progress value={doc?.progress ?? 0} className="h-1.5" />
       <div className="flex justify-between text-xs text-muted-foreground">
-        <span>{humanize(doc?.stage ?? null) || "Waiting"}</span>
+        <span>{stageLabel(doc?.stage) || "Waiting in queue"}</span>
         <span>{doc?.progress ?? 0}%</span>
       </div>
       {doc?.error_message && <p className="text-xs text-destructive">{doc.error_message}</p>}
