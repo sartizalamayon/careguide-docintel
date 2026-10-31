@@ -1,0 +1,73 @@
+name: docintel
+
+x-backend: &backend
+  build: ./backend
+  env_file: .env
+  environment:
+    DATABASE_URL: postgresql+psycopg://docintel:docintel@db:5432/docintel
+    REDIS_URL: redis://redis:6379/0
+    STORAGE_DIR: /data/uploads
+  volumes:
+    - uploads:/data/uploads
+    - ./datasets:/datasets:ro          # tests + eval fixtures
+    - ./eval:/eval                     # evaluation runner + results
+  depends_on:
+    db: { condition: service_healthy }
+    redis: { condition: service_healthy }
+  restart: unless-stopped
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: docintel
+      POSTGRES_PASSWORD: docintel
+      POSTGRES_DB: docintel
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U docintel"]
+      interval: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      retries: 20
+
+  api:
+    <<: *backend
+    command: ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --proxy-headers"]
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/api/v1/health"]
+      interval: 10s
+      retries: 10
+
+  worker:
+    <<: *backend
+    command: ["celery", "-A", "app.worker", "worker", "-Q", "documents", "--concurrency=2", "--loglevel=INFO"]
+
+  web:
+    build: ./frontend
+    environment:
+      BACKEND_URL: http://api:8000/api/v1
+      API_KEY: ${API_KEY}
+    ports:
+      - "3000:3000"
+    depends_on:
+      api: { condition: service_healthy }
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  redisdata:
+  uploads:

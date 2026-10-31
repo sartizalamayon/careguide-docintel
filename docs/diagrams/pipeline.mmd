@@ -1,0 +1,25 @@
+flowchart TD
+  U[Upload files] --> C{"Type, magic bytes,<br/>size OK?"}
+  C -- no --> R[Rejected per file<br/>UNSUPPORTED / EMPTY / MISMATCH / TOO_LARGE]
+  C -- yes --> Q[Stored + queued] --> T{File type}
+  T -- PDF --> P{"Page has text?"}
+  P -- "yes (digital)" --> L[Words to layout text]
+  P -- "no (scanned)" --> O
+  T -- "PNG / JPG / TIFF" --> O["OCR pass A (plain)<br/>if weak: pass B (deskew + adaptive)<br/>keep better"]
+  O --> L
+  T -- "XLSX / XLS / CSV" --> S{"Header row +<br/>columns mapped?"}
+  S -- "yes" --> TB[Table mode<br/>group rows by invoice no.]
+  S -- "unknown headers" --> CM[LLM column mapper] --> S
+  S -- "no table" --> LM[Layout mode: sheet as text]
+  L --> G[Segment pages into invoices]
+  LM --> X
+  G --> X["LLM extraction<br/>strict JSON schema · temp 0 · cache"]
+  X --> GR["Grounding: every value<br/>must appear in the text"]
+  GR --> V
+  TB --> V["Validation<br/>missing · invalid · line×qty · Σlines=subtotal<br/>subtotal+tax=total · duplicates"]
+  V --> D{"Errors or<br/>low confidence?"}
+  D -- yes --> NR[needs_review → human corrects / approves]
+  D -- no --> OK[completed]
+  NR --> E
+  OK --> E[Embed + full-text index → searchable]
+  Q -. "corrupt / encrypted / blank" .-> F[failed + reason<br/>reprocess available]

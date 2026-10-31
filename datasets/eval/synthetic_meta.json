@@ -1,0 +1,69 @@
+{
+  "duplicate_groups": [
+    [
+      "syn-digital_03",
+      "syn-scanned_00"
+    ],
+    [
+      "syn-digital_07",
+      "syn-photo_03"
+    ],
+    [
+      "syn-pdfpair_original",
+      "syn-pdfpair_received_scan"
+    ]
+  ],
+  "crosschecks": [
+    {
+      "a": "syn-batch_5_invoices",
+      "b": "syn-erp_export",
+      "kind": "pdf_excel",
+      "expected": {
+        "matched": [
+          "AP-1066",
+          "AP-1069"
+        ],
+        "mismatched": [
+          {
+            "invoice_number": "AP-1067",
+            "fields": [
+              "total"
+            ]
+          },
+          {
+            "invoice_number": "AP-1068",
+            "fields": [
+              "invoice_date"
+            ]
+          }
+        ],
+        "only_in_a": [
+          "AP-1070"
+        ],
+        "only_in_b": [
+          "AP-1071"
+        ]
+      }
+    },
+    {
+      "a": "syn-pdfpair_original",
+      "b": "syn-pdfpair_received_scan",
+      "kind": "pdf_pdf",
+      "expected": {
+        "matched": [
+          "SUP-1072"
+        ],
+        "mismatched": [
+          {
+            "invoice_number": "SUP-1073",
+            "fields": [
+              "tax"
+            ]
+          }
+        ],
+        "only_in_a": [],
+        "only_in_b": []
+      }
+    }
+  ]
+}

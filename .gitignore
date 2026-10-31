@@ -1,0 +1,29 @@
+# secrets
+.env
+.env.local
+*.pem
+
+# python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# node
+node_modules/
+.next/
+*.tsbuildinfo
+next-env.d.ts
+
+# datasets: public images and perf PDFs are downloaded/generated (see docs/DATASETS.md)
+datasets/eval/katanaml/
+datasets/eval/perf/
+datasets/eval/manifest_perf.jsonl
+
+# os / editors
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,10 @@
+# Only for the dataset tools (not the app). Used by `make data` / `make perf-data`.
+pyarrow==21.0.0
+pillow==11.3.0
+numpy==2.2.6
+opencv-python-headless==4.11.0.86
+pymupdf==1.26.7
+reportlab==4.4.4
+faker==37.6.0
+openpyxl==3.1.5
+xlwt==1.3.0

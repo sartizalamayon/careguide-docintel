@@ -1,0 +1,29 @@
+﻿invoice_number;date;supplier;customer;currency;item;quantity;price;line_amount;net_total;vat_total;gross_total
+INV-1058;2025-08-17;Wilson-Fisher;Skinner-Grant;EUR;Caregiver hours - weekday;4;24,48;97,92;28399,76;1419,99;29819,75
+INV-1058;2025-08-17;Wilson-Fisher;Skinner-Grant;EUR;Scheduling software licence (annual);12;641,35;7696,20;28399,76;1419,99;29819,75
+INV-1058;2025-08-17;Wilson-Fisher;Skinner-Grant;EUR;Office chair, ergonomic;3;168,31;504,93;28399,76;1419,99;29819,75
+INV-1058;2025-08-17;Wilson-Fisher;Skinner-Grant;EUR;Wheelchair rental (monthly);4;59,14;236,56;28399,76;1419,99;29819,75
+INV-1058;2025-08-17;Wilson-Fisher;Skinner-Grant;EUR;Nitrile gloves, box of 100;1;12,48;12,48;28399,76;1419,99;29819,75
+INV-1058;2025-08-17;Wilson-Fisher;Skinner-Grant;EUR;Scheduling software licence (annual);20;989,45;19789,00;28399,76;1419,99;29819,75
+INV-1058;2025-08-17;Wilson-Fisher;Skinner-Grant;EUR;Caregiver hours - weekday;3;20,89;62,67;28399,76;1419,99;29819,75
+CG-1059;2025-02-27;Marsh-Wood;Meyer, Jennings and Jackson;EUR;Printer toner cartridge;3;83,03;249,09;30401,01;6080,20;36481,21
+CG-1059;2025-02-27;Marsh-Wood;Meyer, Jennings and Jackson;EUR;Laptop, 14-inch business;20;1098,44;21968,80;30401,01;6080,20;36481,21
+CG-1059;2025-02-27;Marsh-Wood;Meyer, Jennings and Jackson;EUR;Laptop, 14-inch business;3;876,32;2628,96;30401,01;6080,20;36481,21
+CG-1059;2025-02-27;Marsh-Wood;Meyer, Jennings and Jackson;EUR;Wheelchair rental (monthly);40;84,09;3363,60;30401,01;6080,20;36481,21
+CG-1059;2025-02-27;Marsh-Wood;Meyer, Jennings and Jackson;EUR;Scheduling software licence (annual);4;547,64;2190,56;30401,01;6080,20;36481,21
+INV-2025-1060;2026-03-17;Edwards-Oconnell;Newman-Parkinson;EUR;Disinfectant spray 500ml;2;7,53;15,06;256,59;12,83;269,42
+INV-2025-1060;2026-03-17;Edwards-Oconnell;Newman-Parkinson;EUR;Adult diapers, pack of 20;3;25,59;76,77;256,59;12,83;269,42
+INV-2025-1060;2026-03-17;Edwards-Oconnell;Newman-Parkinson;EUR;Printer toner cartridge;2;82,38;164,76;256,59;12,83;269,42
+INV-2025-1061;2026-04-15;Mack Ltd;Willis Inc;EUR;Cloud hosting - standard plan;1;117,12;117,12;6730,73;336,54;7067,27
+INV-2025-1061;2026-04-15;Mack Ltd;Willis Inc;EUR;Caregiver hours - weekend;1;27,01;27,01;6730,73;336,54;7067,27
+INV-2025-1061;2026-04-15;Mack Ltd;Willis Inc;EUR;Cloud hosting - standard plan;10;102,22;1022,20;6730,73;336,54;7067,27
+INV-2025-1061;2026-04-15;Mack Ltd;Willis Inc;EUR;Laptop, 14-inch business;4;1367,76;5471,04;6730,73;336,54;7067,27
+INV-2025-1061;2026-04-15;Mack Ltd;Willis Inc;EUR;Caregiver hours - weekday;3;31,12;93,36;6730,73;336,54;7067,27
+CG-1062;2026-01-21;Barker Inc;Wong-Byrd;EUR;Adult diapers, pack of 20;10;13,58;135,80;1639,85;327,97;N/A
+CG-1062;2026-01-21;Barker Inc;Wong-Byrd;EUR;Adult diapers, pack of 20;5;26,63;133,15;1639,85;327,97;N/A
+CG-1062;2026-01-21;Barker Inc;Wong-Byrd;EUR;HHA training course seat;5;274,18;1370,90;1639,85;327,97;N/A
+INV-1063;2026-08-28;Garcia, Wiggins and Lopez;Murphy LLC;EUR;Laptop, 14-inch business;4;1222,52;4890,08;6341,90;1268,38;7610,28
+INV-1063;2026-08-28;Garcia, Wiggins and Lopez;Murphy LLC;EUR;Adult diapers, pack of 20;40;23,83;953,20;6341,90;1268,38;7610,28
+INV-1063;2026-08-28;Garcia, Wiggins and Lopez;Murphy LLC;EUR;Courier delivery;2;30,65;61,30;6341,90;1268,38;7610,28
+INV-1063;2026-08-28;Garcia, Wiggins and Lopez;Murphy LLC;EUR;HHA training course seat;2;191,99;383,98;6341,90;1268,38;7610,28
+INV-1063;2026-08-28;Garcia, Wiggins and Lopez;Murphy LLC;EUR;Adult diapers, pack of 20;2;26,67;53,34;6341,90;1268,38;7610,28

@@ -1,0 +1,17 @@
+flowchart TB
+  user([Finance / ops user]):::actor --> web["Next.js web app (browser)<br/>upload · progress · review · search · compare"]
+  web --> proxy["Next.js server proxy<br/>adds X-API-Key"]
+  proxy --> api["FastAPI<br/>upload checks · REST API · OpenAPI docs"]
+  api -- "store original" --> files[("File storage<br/>Docker volume")]
+  api -- "read / write" --> db[("PostgreSQL 16<br/>pgvector · pg_trgm · full-text")]
+  api -- "enqueue job" --> redis[("Redis<br/>Celery broker")]
+  redis --> parse
+  subgraph workers ["Celery workers · scale ×N"]
+    direction LR
+    parse["1 · Parse<br/>PyMuPDF · pandas"] --> ocr["2 · OCR<br/>Tesseract + OpenCV<br/>thread pool"] --> seg["3 · Segment<br/>invoice boundaries"] --> ext["4 · Extract<br/>LLM JSON schema<br/>+ grounding"] --> val["5 · Validate<br/>rules · duplicates"] --> emb["6 · Embed<br/>bge-small, local"]
+  end
+  ext <--> llm{{"LLM API<br/>Gemini · OpenAI-compatible"}}:::ext
+  files -. "read file" .-> parse
+  workers -- "pages · invoices · issues · events" --> db
+  classDef actor fill:#F68C44,color:#fff,stroke:#d9742f
+  classDef ext fill:#FFF1E6,stroke:#F68C44,color:#10102E
