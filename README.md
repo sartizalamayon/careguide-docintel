@@ -34,12 +34,12 @@ make up                       # or: docker compose up -d --build
 
 ### Without Docker
 
-Docker is the supported route. If you cannot use it, everything also runs from the command line. The Linux steps were run for this project; the macOS Homebrew commands follow the same steps but were not run on a Mac.
+Docker is the supported route. If you cannot use it, everything also runs from the command line. These steps were run on Linux and on an Apple Silicon Mac (Homebrew, Postgres 17 with pgvector, Python 3.12, Node 22). On the Mac the Celery worker needs `--pool=solo` and the frontend needs dev dependencies installed.
 
 ```bash
 # 1. Services and tools (macOS shown; on Linux use apt: postgresql-16 postgresql-16-pgvector redis-server tesseract-ocr)
-brew install postgresql@16 pgvector redis tesseract python@3.12 node
-brew services start postgresql@16 && brew services start redis
+brew install postgresql@17 pgvector redis tesseract python@3.12 node
+brew services start postgresql@17 && brew services start redis
 
 # 2. Database
 createuser docintel && createdb docintel -O docintel
@@ -52,11 +52,11 @@ export DATABASE_URL=postgresql+psycopg://docintel:docintel@127.0.0.1:5432/docint
 export REDIS_URL=redis://127.0.0.1:6379/0 STORAGE_DIR=$PWD/../storage EMBEDDING_CACHE_DIR=$PWD/../models
 alembic upgrade head
 uvicorn app.main:app --port 8000 &
-celery -A app.worker worker -Q documents --concurrency=2 --loglevel=INFO &
+celery -A app.worker worker -Q documents --pool=solo --loglevel=INFO &   # on macOS --pool=solo is required
 
 # 4. Frontend
 cd ../frontend && cp .env.local.example .env.local   # set API_KEY to the same value as in .env
-npm install && npm run dev                           # http://localhost:3000
+npm install --include=dev && npm run dev             # http://localhost:3000 (if NODE_ENV is set in your shell, unset it first)
 ```
 
 The embedding model (about 130 MB) downloads on first use.
