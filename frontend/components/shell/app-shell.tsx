@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FileStack, GitCompareArrows, LayoutDashboard, ListChecks, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AccountMenu } from "./account-menu";
 
 const NAV = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -38,6 +39,7 @@ function MobileNav({ pathname }: { pathname: string }) {
           </Link>
         ))}
       </nav>
+      <AccountMenu compact />
     </header>
   );
 }
@@ -72,7 +74,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             );
           })}
         </nav>
-        <div className="px-5 py-4 text-xs text-sidebar-foreground/60">Invoices · Receipts · Spreadsheets</div>
+        <div className="border-t border-sidebar-border/60 p-3">
+          <AccountMenu />
+        </div>
       </aside>
       <main className="min-w-0 flex-1 px-6 py-6 lg:px-10">{children}</main>
     </div>

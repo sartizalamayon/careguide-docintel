@@ -1,9 +1,11 @@
 /**
  * Server-side proxy: browser -> /api/backend/<path> -> FastAPI /api/v1/<path>.
- * Adds X-API-Key on the server so the key never reaches the browser. Streams bodies both ways
- * (multipart uploads, PDFs, page images).
+ * Adds X-API-Key on the server so the key never reaches the browser, and X-User-Email from the verified
+ * Google session (never from the browser). Streams bodies both ways (multipart uploads, PDFs, page images).
  */
 import { NextRequest } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -20,6 +22,8 @@ async function proxy(req: NextRequest, ctx: { params: Promise<{ path: string[] }
   }
   const url = `${BACKEND_URL}/${path.map(encodeURIComponent).join("/")}${req.nextUrl.search}`;
   const headers = new Headers({ "X-API-Key": API_KEY });
+  const email = (await getServerSession(authOptions))?.user?.email;
+  if (email) headers.set("X-User-Email", email);
   for (const h of FORWARD_REQ_HEADERS) {
     const v = req.headers.get(h);
     if (v) headers.set(h, v);
@@ -46,4 +50,4 @@ async function proxy(req: NextRequest, ctx: { params: Promise<{ path: string[] }
   return new Response(res.body, { status: res.status, headers: out });
 }
 
-export { proxy as GET, proxy as POST, proxy as PATCH, proxy as DELETE };
+export { proxy as GET, proxy as POST, proxy as PUT, proxy as PATCH, proxy as DELETE };

@@ -83,3 +83,17 @@ export interface Stats {
   invoices: Record<"total" | InvoiceStatus, number>;
   pages_processed: number; avg_processing_ms: number; top_issue_codes: { code: string; count: number }[];
 }
+
+export interface LlmKey {
+  provider: "groq";
+  model: string;
+  key_hint: string;
+  updated_at: string;
+}
+
+export interface AccountLlmStatus {
+  email: string;
+  key: LlmKey | null;
+  models: string[];
+  server_model: string;
+}

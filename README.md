@@ -65,6 +65,14 @@ Other commands: `make test`, `make lint`, `make logs`, `make data` (public label
 
 The default model is `gemini-3.5-flash-lite` (about 2 s per invoice). If it is overloaded or rate-limited, the client retries three times within about 10 s and then switches to `LLM_FALLBACK_MODEL` (`gemini-3.1-flash-lite`). Use another LLM by changing three env vars. For example, Groq: `LLM_BASE_URL=https://api.groq.com/openai/v1`, `LLM_MODEL=openai/gpt-oss-120b`, or set the `LLM_FALLBACK_*` vars to use Groq only as the fallback.
 
+### Sign in and use your own Groq key
+
+The app works without signing in. To let people use their own LLM key, set `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` and `NEXTAUTH_SECRET` (see `.env.example`). A **Sign in with Google** button then appears at the bottom of the left navigation. After signing in, the menu there opens **Your Groq API key**, where you can add a key (free at [console.groq.com/keys](https://console.groq.com/keys)), pick the model, replace it or remove it.
+
+- The key is checked with Groq before it is saved, stored encrypted (Fernet), and only shown back as `gsk_…1234`.
+- Documents you upload while signed in are extracted with your key and model; the server's Gemini models take over if Groq fails.
+- The browser never sends your identity to the API itself: the Next.js server reads the Google session and adds it, next to the API key.
+
 ## How it works
 
 1. **Upload**: type allowlist, magic-byte check (a renamed file is caught), size limit, SHA-256. Bad files are rejected individually, with the reason.
@@ -119,11 +127,11 @@ docs/       architecture, schema, spec, plan, datasets, evaluation, AI disclosur
 
 ## Security notes
 
-API-key auth (the key stays server-side behind the Next.js proxy), CORS allowlist, upload allowlist + magic bytes + size caps, decompression-bomb and sheet/page caps, server-generated storage paths, parameterised SQL, non-root containers, secrets only via env, and prompt-injection-resistant extraction (data-only prompt, strict JSON schema, grounding).
+API-key auth (the key stays server-side behind the Next.js proxy), optional Google sign-in whose identity is added server-side by the proxy, user LLM keys encrypted at rest and never returned, CORS allowlist, upload allowlist + magic bytes + size caps, decompression-bomb and sheet/page caps, server-generated storage paths, parameterised SQL, non-root containers, secrets only via env, and prompt-injection-resistant extraction (data-only prompt, strict JSON schema, grounding).
 
 ## Limitations
 
-English documents only (Tesseract `eng`). Segmentation needs an invoice number or "Page x of y" on each invoice. No user accounts or roles (single API key). Files are stored on a local volume (S3 would be the production swap).
+English documents only (Tesseract `eng`). Segmentation needs an invoice number or "Page x of y" on each invoice. No roles: signing in only identifies who owns a Groq key, and every user sees all documents. Files are stored on a local volume (S3 would be the production swap).
 
 ## AI-assisted development
 

@@ -1,6 +1,6 @@
 // Typed client for the FastAPI backend, always via the same-origin proxy (/api/backend).
 import type {
-  CrossCheck, DocStatus, DocumentDetail, DocumentStatus, DocumentSummary, FileType, InvoiceDetail, InvoicePatch,
+  AccountLlmStatus, LlmKey, CrossCheck, DocStatus, DocumentDetail, DocumentStatus, DocumentSummary, FileType, InvoiceDetail, InvoicePatch,
   InvoiceStatus, InvoiceSummary, Page, PageText, ProcessingEvent, SearchHit, SearchMode, Stats, UploadResponse,
 } from "./types";
 
@@ -92,6 +92,11 @@ export const api = {
 
   crossCheck: (document_a_id: string, document_b_id: string) =>
     request<CrossCheck>("/cross-checks", json("POST", { document_a_id, document_b_id })),
+
+  llmKey: () => request<AccountLlmStatus>("/me/llm-key"),
+  saveLlmKey: (api_key: string, model: string) => request<LlmKey>("/me/llm-key", json("PUT", { api_key, model })),
+  setLlmModel: (model: string) => request<LlmKey>("/me/llm-key", json("PATCH", { model })),
+  removeLlmKey: () => request<void>("/me/llm-key", { method: "DELETE" }),
 };
 
 export const errorMessage = (e: unknown): string => (e instanceof Error ? e.message : "Something went wrong.");
