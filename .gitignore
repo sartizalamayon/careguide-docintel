@@ -27,3 +27,4 @@ datasets/eval/manifest_perf.jsonl
 .DS_Store
 .idea/
 .vscode/
+local-data/
