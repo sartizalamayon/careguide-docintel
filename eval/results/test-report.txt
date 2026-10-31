@@ -1,0 +1,46 @@
+........................................................................ [ 38%]
+........................................................................ [ 77%]
+...........................................                              [100%]
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.3-final-0 ________________
+
+Name                           Stmts   Miss  Cover
+--------------------------------------------------
+app/__init__.py                    0      0   100%
+app/api/__init__.py                0      0   100%
+app/api/common.py                 26      0   100%
+app/api/crosschecks.py            21      0   100%
+app/api/documents.py             199     33    83%
+app/api/invoices.py              193     40    79%
+app/api/search.py                 83      6    93%
+app/api/system.py                 42      7    83%
+app/config.py                     33      0   100%
+app/db.py                         23      3    87%
+app/errors.py                     53      7    87%
+app/log.py                         7      0   100%
+app/main.py                       20      0   100%
+app/models.py                    149      0   100%
+app/pipeline/__init__.py           0      0   100%
+app/pipeline/crosscheck.py        99      1    99%
+app/pipeline/embeddings.py        22      0   100%
+app/pipeline/extract.py          171      3    98%
+app/pipeline/filetypes.py         35      3    91%
+app/pipeline/images.py            56      0   100%
+app/pipeline/layout.py            57      2    96%
+app/pipeline/llm.py              108      1    99%
+app/pipeline/normalize.py        105     13    88%
+app/pipeline/ocr.py               72      0   100%
+app/pipeline/orchestrator.py     241     17    93%
+app/pipeline/pdf.py               78      1    99%
+app/pipeline/prompts.py            8      0   100%
+app/pipeline/segment.py           63      0   100%
+app/pipeline/spreadsheets.py     240     15    94%
+app/pipeline/types.py             43      1    98%
+app/pipeline/validate.py         166      2    99%
+app/schemas.py                   202      0   100%
+app/security.py                    8      0   100%
+app/storage.py                    59      0   100%
+app/worker.py                     21      1    95%
+--------------------------------------------------
+TOTAL                           2703    156    94%
+187 passed in 42.73s

@@ -102,6 +102,8 @@ class LlmClient:
     def api(self) -> Any:
         if self._api is None:
             settings = get_settings()
+            if not settings.LLM_API_KEY:
+                raise ProcessingError(LLM_UNAVAILABLE, "LLM_API_KEY is not set, so extraction cannot run.")
             self._api = openai.OpenAI(
                 base_url=settings.LLM_BASE_URL,
                 api_key=settings.LLM_API_KEY,
