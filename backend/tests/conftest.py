@@ -137,3 +137,51 @@ def fake_from_gt(gt_invoice: dict, confidence: float = 0.95) -> dict:
             for i in gt_invoice["line_items"]
         ],
     }
+
+
+def _invoice_in_text(manifest: dict[str, dict], text: str) -> dict | None:
+    """The ground-truth invoice whose number appears in the text (alphanumeric comparison, OCR-tolerant)."""
+    import re
+
+    compact = re.sub(r"[^A-Z0-9]", "", text.upper())
+    for row in manifest.values():
+        for invoice in row["invoices"]:
+            number = re.sub(r"[^A-Z0-9]", "", (invoice["invoice_number"] or "").upper())
+            if number and number in compact:
+                return invoice
+    return None
+
+
+NOT_AN_INVOICE = {
+    "is_invoice": False,
+    **{
+        name: {"value": None, "confidence": 0}
+        for name in (
+            "invoice_number",
+            "invoice_date",
+            "supplier_name",
+            "customer_name",
+            "currency",
+            "subtotal",
+            "tax",
+            "total",
+        )
+    },
+    "line_items": [],
+}
+
+
+@pytest.fixture
+def fake_llm(monkeypatch, manifest):
+    """Replace the LLM with a FakeLLM that answers each segment from the synthetic ground truth."""
+
+    def answer(purpose, system, user):
+        if purpose == "column_map":
+            return {"mapping": {}}
+        invoice = _invoice_in_text(manifest, user)
+        return fake_from_gt(invoice) if invoice else NOT_AN_INVOICE
+
+    fake = FakeLLM(answer)
+    monkeypatch.setattr("app.pipeline.llm.get_llm", lambda: fake)
+    monkeypatch.setattr("app.pipeline.extract.get_llm", lambda: fake, raising=False)
+    return fake

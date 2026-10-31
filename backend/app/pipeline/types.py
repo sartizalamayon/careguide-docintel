@@ -2,6 +2,7 @@
 
 Shared contract. Do not change field names without updating every stage that uses them.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field

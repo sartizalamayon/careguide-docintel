@@ -1,4 +1,5 @@
 """Amount, date and name helpers shared by extraction, validation, search and cross-checks (SPEC §5, §6.5, §6.8)."""
+
 from __future__ import annotations
 
 import datetime as dt
