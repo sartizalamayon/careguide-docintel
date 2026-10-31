@@ -142,6 +142,11 @@ export function ReviewView({ invoice, onUpdated }: ReviewViewProps) {
           </div>
           <p className="mt-1 text-sm text-muted-foreground">
             From <Link href={`/documents/${invoice.document_id}`} className="text-brand-navy hover:underline">{invoice.filename}</Link>
+            {invoice.llm_model && (
+              <>
+                {" "}· read by <code className="text-xs">{invoice.llm_model}</code>
+              </>
+            )}
           </p>
         </div>
         <div className="flex items-center gap-2">

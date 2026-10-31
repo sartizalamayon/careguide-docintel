@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { Search } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
@@ -42,11 +43,35 @@ function toParams({ q, mode, filters: f, page }: Submitted): SearchParams {
   };
 }
 
+const MODES: SearchMode[] = ["hybrid", "keyword", "semantic"];
+
 export default function SearchPage() {
-  const [q, setQ] = useState("");
-  const [mode, setMode] = useState<SearchMode>("hybrid");
+  return (
+    <Suspense>
+      <SearchView />
+    </Suspense>
+  );
+}
+
+/** The query and mode live in the URL (?q=&mode=), so a search can be bookmarked or shared. */
+function SearchView() {
+  const params = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const initialQ = params.get("q") ?? "";
+  const initialMode = MODES.find((m) => m === params.get("mode")) ?? "hybrid";
+  const [q, setQ] = useState(initialQ);
+  const [mode, setMode] = useState<SearchMode>(initialMode);
   const [filters, setFilters] = useState<SearchFilterValues>(EMPTY_FILTERS);
-  const [submitted, setSubmitted] = useState<Submitted>({ q: "", mode: "hybrid", filters: EMPTY_FILTERS, page: 1 });
+  const [submitted, setSubmitted] = useState<Submitted>({ q: initialQ, mode: initialMode, filters: EMPTY_FILTERS, page: 1 });
+
+  const syncUrl = (nextQ: string, nextMode: SearchMode) => {
+    const next = new URLSearchParams();
+    if (nextQ.trim()) next.set("q", nextQ.trim());
+    if (nextMode !== "hybrid") next.set("mode", nextMode);
+    const query = next.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  };
 
   const results = useQuery({
     queryKey: ["search", submitted],
@@ -57,12 +82,14 @@ export default function SearchPage() {
   const submit = (e?: React.FormEvent) => {
     e?.preventDefault();
     setSubmitted({ q, mode, filters, page: 1 });
+    syncUrl(q, mode);
   };
 
   const clear = () => {
     setQ("");
     setFilters(EMPTY_FILTERS);
     setSubmitted({ q: "", mode, filters: EMPTY_FILTERS, page: 1 });
+    syncUrl("", mode);
   };
 
   const hits = results.data?.items ?? [];
