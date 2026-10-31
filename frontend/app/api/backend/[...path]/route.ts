@@ -15,6 +15,15 @@ const API_KEY = process.env.API_KEY ?? "";
 const FORWARD_REQ_HEADERS = ["content-type", "accept", "content-length"];
 const FORWARD_RES_HEADERS = ["content-type", "content-disposition", "cache-control", "content-length"];
 
+/** The verified Google email, or null when signed out or when sessions are not set up. */
+async function signedInEmail(): Promise<string | null> {
+  try {
+    return (await getServerSession(authOptions))?.user?.email ?? null;
+  } catch {
+    return null;
+  }
+}
+
 async function proxy(req: NextRequest, ctx: { params: Promise<{ path: string[] }> }) {
   const { path } = await ctx.params;
   if (path.some((p) => p === ".." || p.includes("/"))) {
@@ -22,7 +31,7 @@ async function proxy(req: NextRequest, ctx: { params: Promise<{ path: string[] }
   }
   const url = `${BACKEND_URL}/${path.map(encodeURIComponent).join("/")}${req.nextUrl.search}`;
   const headers = new Headers({ "X-API-Key": API_KEY });
-  const email = (await getServerSession(authOptions))?.user?.email;
+  const email = await signedInEmail();
   if (email) headers.set("X-User-Email", email);
   for (const h of FORWARD_REQ_HEADERS) {
     const v = req.headers.get(h);

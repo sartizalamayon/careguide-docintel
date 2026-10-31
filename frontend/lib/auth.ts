@@ -1,5 +1,6 @@
 // Google sign-in (Auth.js / next-auth v4, JWT sessions, no database). Used only to identify the user who
 // manages their own Groq key; the rest of the app works signed out.
+import { createHash } from "node:crypto";
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -11,6 +12,11 @@ export const googleConfigured = Boolean(clientId && clientSecret);
 export const authOptions: NextAuthOptions = {
   providers: googleConfigured ? [GoogleProvider({ clientId, clientSecret })] : [],
   session: { strategy: "jwt" },
-  // A fixed fallback keeps `npm run dev` working before NEXTAUTH_SECRET is set; production must set it.
-  secret: process.env.NEXTAUTH_SECRET ?? (process.env.NODE_ENV === "production" ? undefined : "docintel-dev-only-secret"),
+  // Without NEXTAUTH_SECRET, derive one from the server-only API_KEY so sessions still work (and never crash the app).
+  secret: process.env.NEXTAUTH_SECRET || sessionSecretFallback(),
 };
+
+function sessionSecretFallback(): string {
+  const apiKey = process.env.API_KEY ?? "";
+  return apiKey ? createHash("sha256").update(`nextauth:${apiKey}`).digest("hex") : "docintel-dev-only-secret";
+}

@@ -67,7 +67,7 @@ The default model is `gemini-3.5-flash-lite` (about 2 s per invoice). If it is o
 
 ### Sign in and use your own Groq key
 
-The app works without signing in. To let people use their own LLM key, set `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` and `NEXTAUTH_SECRET` (see `.env.example`). A **Sign in with Google** button then appears at the bottom of the left navigation. After signing in, the menu there opens **Your Groq API key**, where you can add a key (free at [console.groq.com/keys](https://console.groq.com/keys)), pick the model, replace it or remove it.
+The app works without signing in. To let people use their own LLM key, create a Google OAuth client (redirect URI `http://localhost:3000/api/auth/callback/google`) and set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` (see `.env.example`; `NEXTAUTH_SECRET` is optional). A **Sign in with Google** button then appears at the bottom of the left navigation. After signing in, the menu there opens **Your Groq API key**, where you can add a key (free at [console.groq.com/keys](https://console.groq.com/keys)), pick the model, replace it or remove it.
 
 - The key is checked with Groq before it is saved, stored encrypted (Fernet), and only shown back as `gsk_…1234`.
 - Documents you upload while signed in are extracted with your key and model; the server's Gemini models take over if Groq fails.
