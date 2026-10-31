@@ -51,3 +51,50 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run build
+
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      API_KEY: ci-docker-key-0123456789
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create .env
+        run: |
+          cp .env.example .env
+          sed -i "s|^API_KEY=.*|API_KEY=$API_KEY|" .env
+      - name: Build and start the stack
+        run: docker compose up -d --build
+      - name: Wait for the API and the web app
+        run: |
+          for i in $(seq 1 60); do
+            if curl -fsS localhost:8000/api/v1/health | grep -q '"db":true' && curl -fsS -o /dev/null localhost:3000/; then echo "stack ready"; exit 0; fi
+            sleep 5
+          done
+          echo "stack did not become ready"; exit 1
+      - name: Upload a spreadsheet and a corrupted PDF, check the results
+        run: |
+          H="X-API-Key: $API_KEY"; B=localhost:8000/api/v1
+          up() { curl -fsS -H "$H" -F "files=@$1" $B/documents | python3 -c "import sys,json; print(json.load(sys.stdin)['documents'][0]['id'])"; }
+          wait_doc() {
+            for i in $(seq 1 60); do
+              S=$(curl -fsS -H "$H" $B/documents/$1 | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['status'], d['invoice_count'], d.get('error_code'))")
+              case "$S" in completed*|needs_review*|failed*) echo "$S"; return;; esac
+              sleep 3
+            done
+            echo "timeout"
+          }
+          OK=$(wait_doc "$(up datasets/eval/synthetic/spreadsheets/erp_export_eu.csv)"); echo "spreadsheet: $OK"
+          BAD=$(wait_doc "$(up datasets/eval/synthetic/corrupted/broken_body.pdf)"); echo "corrupted pdf: $BAD"
+          echo "$OK" | grep -Eq '^(completed|needs_review) [1-9]' || { echo "spreadsheet did not produce invoices"; exit 1; }
+          echo "$BAD" | grep -q 'failed 0 CORRUPTED_FILE' || { echo "corrupted pdf was not rejected cleanly"; exit 1; }
+      - name: Web proxy and search respond
+        run: |
+          curl -fsS localhost:3000/api/backend/documents | python3 -c "import sys,json; assert json.load(sys.stdin)['total'] >= 2"
+          curl -fsS -H "X-API-Key: $API_KEY" "localhost:8000/api/v1/search?q=invoice" >/dev/null
+      - name: Logs on failure
+        if: failure()
+        run: docker compose logs --no-color | tail -200
+      - name: Stop the stack
+        if: always()
+        run: docker compose down -v
