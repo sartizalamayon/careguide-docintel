@@ -67,7 +67,7 @@ The default model is `gemini-3.5-flash-lite` (about 2 s per invoice). If it is o
 
 ### Free deployment
 
-[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) deploys it with no credit card: the web app on Vercel, the API and worker in one free Render container (`render.yaml`), and the database on Neon. On that host the app runs in a small-host mode (jobs in the API process, originals kept in Postgres, embeddings from Gemini) that peaks at 348 MB of memory.
+Live: **https://docintel-kappa.vercel.app** (free tier: the first request after 15 idle minutes takes about a minute while the API wakes up). [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) deploys it with no credit card: the web app on Vercel, the API and worker in one free Render container (`render.yaml`), and the database on Neon. On that host the app runs in a small-host mode (jobs in the API process, originals kept in Postgres, embeddings from Gemini) that peaks at 348 MB of memory.
 
 ### Sign in and use your own Groq key
 
