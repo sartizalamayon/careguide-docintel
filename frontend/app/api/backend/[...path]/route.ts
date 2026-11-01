@@ -13,7 +13,8 @@ export const runtime = "nodejs";
 const BACKEND_URL = process.env.BACKEND_URL ?? "http://localhost:8000/api/v1";
 const API_KEY = process.env.API_KEY ?? "";
 const FORWARD_REQ_HEADERS = ["content-type", "accept", "content-length"];
-const FORWARD_RES_HEADERS = ["content-type", "content-disposition", "cache-control", "content-length"];
+// No content-length: fetch() decompresses gzip from the API, so the original length would cut the body short.
+const FORWARD_RES_HEADERS = ["content-type", "content-disposition", "cache-control"];
 
 /** The verified Google email, or null when signed out or when sessions are not set up. */
 async function signedInEmail(): Promise<string | null> {
