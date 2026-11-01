@@ -25,6 +25,7 @@ os.environ.setdefault("STORAGE_DIR", tempfile.mkdtemp(prefix="docintel-test-"))
 os.environ.setdefault("EMBEDDING_CACHE_DIR", "/models")
 
 TABLES = [
+    "stored_files",
     "llm_calls",
     "user_llm_keys",
     "cross_checks",

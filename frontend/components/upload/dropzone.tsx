@@ -5,7 +5,9 @@ import { Loader2, UploadCloud } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { RejectedFile } from "@/lib/types";
 
-export const MAX_FILE_BYTES = 200 * 1024 * 1024;
+// Matches the API's MAX_FILE_MB. Set NEXT_PUBLIC_MAX_FILE_MB=4 on Vercel, which caps request bodies at 4.5 MB.
+export const MAX_FILE_MB = Number(process.env.NEXT_PUBLIC_MAX_FILE_MB) || 200;
+export const MAX_FILE_BYTES = MAX_FILE_MB * 1024 * 1024;
 
 const ACCEPT = {
   "application/pdf": [".pdf"],
@@ -26,7 +28,7 @@ export function splitDropped(accepted: File[], rejections: FileRejection[]): { f
   const files: File[] = [];
   for (const file of accepted) {
     if (file.size > MAX_FILE_BYTES) {
-      rejected.push({ filename: file.name, code: "FILE_TOO_LARGE", message: "Files can be up to 200 MB." });
+      rejected.push({ filename: file.name, code: "FILE_TOO_LARGE", message: `Files can be up to ${MAX_FILE_MB} MB.` });
     } else {
       files.push(file);
     }
@@ -65,7 +67,7 @@ export function Dropzone({ uploading, onFiles }: DropzoneProps) {
       <p className="font-heading text-base font-medium text-brand-navy">
         {uploading ? "Uploading…" : isDragActive ? "Drop the files here" : "Drop invoices here, or click to choose"}
       </p>
-      <p className="text-xs text-muted-foreground">PDF, PNG, JPG, TIFF, XLSX, XLS or CSV. Up to 200 MB each.</p>
+      <p className="text-xs text-muted-foreground">PDF, PNG, JPG, TIFF, XLSX, XLS or CSV. Up to {MAX_FILE_MB} MB each.</p>
     </div>
   );
 }

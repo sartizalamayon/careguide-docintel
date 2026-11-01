@@ -65,6 +65,10 @@ Other commands: `make test`, `make lint`, `make logs`, `make data` (public label
 
 The default model is `gemini-3.5-flash-lite` (about 2 s per invoice). If it is overloaded or rate-limited, the client retries three times within about 10 s and then switches to `LLM_FALLBACK_MODEL` (`gemini-3.1-flash-lite`). Use another LLM by changing three env vars. For example, Groq: `LLM_BASE_URL=https://api.groq.com/openai/v1`, `LLM_MODEL=openai/gpt-oss-120b`, or set the `LLM_FALLBACK_*` vars to use Groq only as the fallback.
 
+### Free deployment
+
+[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) deploys it with no credit card: the web app on Vercel, the API and worker in one free Render container (`render.yaml`), and the database on Neon. On that host the app runs in a small-host mode (jobs in the API process, originals kept in Postgres, embeddings from Gemini) that peaks at 348 MB of memory.
+
 ### Sign in and use your own Groq key
 
 The app works without signing in. To let people use their own LLM key, create a Google OAuth client (redirect URI `http://localhost:3000/api/auth/callback/google`) and set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` (see `.env.example`; `NEXTAUTH_SECRET` is optional). A **Sign in with Google** button then appears at the bottom of the left navigation. After signing in, the menu there opens **Your Groq API key**, where you can add a key (free at [console.groq.com/keys](https://console.groq.com/keys)), pick the model, replace it or remove it.

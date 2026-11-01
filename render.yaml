@@ -1,0 +1,38 @@
+# Render Blueprint: the API and the document worker in ONE free web service (512 MB): jobs run inside the API process
+# (no Redis), originals are kept in Postgres (the free disk is wiped), embeddings come from Gemini (no local runtime).
+# Measured peak memory with these settings: 348 MB.
+# The database is Neon (free Postgres with pgvector); the web app is on Vercel. See docs/DEPLOYMENT.md.
+services:
+  - type: web
+    name: docintel-api
+    runtime: docker
+    plan: free
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    dockerCommand: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --proxy-headers"
+    healthCheckPath: /api/v1/health
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL        # Neon connection string, pasted as Neon shows it
+        sync: false
+      - key: API_KEY             # same value as on Vercel
+        sync: false
+      - key: LLM_API_KEY         # Gemini key
+        sync: false
+      - key: WORKER_MODE
+        value: inline
+      - key: STORAGE_BACKEND
+        value: database
+      - key: STORAGE_DIR
+        value: /tmp/uploads
+      - key: MAX_FILE_MB         # Vercel accepts request bodies up to 4.5 MB
+        value: "4"
+      - key: EMBEDDING_PROVIDER
+        value: api
+      - key: MALLOC_ARENA_MAX    # fewer glibc arenas: less memory with threads
+        value: "2"
+      - key: OCR_THREADS         # one OCR page at a time
+        value: "1"
+      - key: LLM_CONCURRENCY
+        value: "2"

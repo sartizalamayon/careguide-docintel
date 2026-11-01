@@ -114,7 +114,7 @@ def test_users_do_not_see_each_others_keys(client, verified):
 
 
 def test_upload_records_the_signed_in_user(client, db, syn_file, monkeypatch):
-    monkeypatch.setattr("app.api.documents.enqueue_document.delay", lambda _id: None)
+    monkeypatch.setattr("app.api.documents.jobs.enqueue", lambda *_: None)
     path = syn_file("digital_pdf/digital_00.pdf")
     with path.open("rb") as fh:
         client.post("/api/v1/documents", headers=USER, files={"files": (path.name, fh, "application/pdf")})

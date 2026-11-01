@@ -182,3 +182,10 @@ CREATE TABLE user_llm_keys (
     created_at     TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at     TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+-- The original upload, kept in Postgres when STORAGE_BACKEND=database (migration 0003). Used on hosts whose disk is
+-- wiped on restart; the file on disk is then a cache that open_path() restores from here.
+CREATE TABLE stored_files (
+    document_id  UUID PRIMARY KEY REFERENCES documents(id) ON DELETE CASCADE,
+    data         BYTEA NOT NULL
+);

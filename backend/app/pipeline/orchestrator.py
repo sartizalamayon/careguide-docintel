@@ -15,7 +15,6 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from functools import partial
-from pathlib import Path
 from typing import Any
 
 from celery.exceptions import SoftTimeLimitExceeded
@@ -42,6 +41,7 @@ from app.pipeline.normalize import norm_invoice_number, norm_supplier
 from app.pipeline.segment import segment_pages
 from app.pipeline.types import ExtractedInvoice, PageText, Segment
 from app.pipeline.validate import validate_invoice
+from app.storage import open_path
 
 PAGE_BATCH = 25
 SAVE_LOCK_KEY = 4242
@@ -226,7 +226,7 @@ def _parse(info: DocInfo) -> tuple[list[PageText], list[ExtractedInvoice], list[
     with _stage(info.document_id, "parsing", 0):
         if info.family == "spreadsheet":
             return _parse_spreadsheet(info)
-        path = Path(info.storage_path)
+        path = open_path(info.storage_path)
         if info.file_type == "pdf":
             total, page_stream = pdf.total_pages(path), pdf.iter_pdf_pages(path)
         else:
@@ -258,7 +258,7 @@ def _parse_pages(document_id: uuid.UUID, page_stream: Iterator[PageText], total:
 
 def _parse_spreadsheet(info: DocInfo) -> tuple[list[PageText], list[ExtractedInvoice], list[Segment]]:
     mapper = partial(map_columns, client=llm.client_for(info.uploaded_by))
-    results = spreadsheets.parse_workbook(Path(info.storage_path), info.file_type, map_columns=mapper)
+    results = spreadsheets.parse_workbook(open_path(info.storage_path), info.file_type, map_columns=mapper)
     pages = [result.page for result in results]
     _update_document(info.document_id, pages_total=len(pages), pages_done=len(pages), progress=PARSE_PROGRESS_END)
     _store_pages(info.document_id, pages)

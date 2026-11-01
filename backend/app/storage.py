@@ -82,6 +82,36 @@ def discard(tmp: StreamedFile) -> None:
     tmp.path.unlink(missing_ok=True)
 
 
+def keep_in_database(document_id: uuid.UUID, path: Path) -> None:
+    """STORAGE_BACKEND=database: also store the original in Postgres, so it survives a wiped disk."""
+    if get_settings().STORAGE_BACKEND != "database":
+        return
+    from app.db import session_scope
+    from app.models import StoredFile
+
+    with session_scope() as session:
+        session.merge(StoredFile(document_id=document_id, data=path.read_bytes()))
+
+
 def open_path(storage_path: str) -> Path:
-    """Path of the stored original. The DB stores the full path, so it can be opened directly."""
-    return Path(storage_path)
+    """Path of the stored original. The DB stores the full path, so it can be opened directly.
+
+    With STORAGE_BACKEND=database a missing file (the host's disk was reset) is written back from Postgres first.
+    """
+    path = Path(storage_path)
+    if path.exists() or get_settings().STORAGE_BACKEND != "database":
+        return path
+    from app.db import session_scope
+    from app.models import StoredFile
+
+    try:
+        document_id = uuid.UUID(path.stem)
+    except ValueError:
+        return path
+    with session_scope() as session:
+        stored = session.get(StoredFile, document_id)
+        if stored is None:
+            return path
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(stored.data)
+    return path

@@ -13,6 +13,8 @@ from sqlalchemy.orm import Session
 from app.api.common import PageParams, invoice_summary, page_params, paginate
 from app.api.invoices import InvoiceFilters, apply_filters, invoice_filters, invoice_query
 from app.db import get_db
+from app.errors import ProcessingError
+from app.log import log
 from app.models import Invoice
 from app.pipeline.embeddings import embed_query
 from app.schemas import Page, SearchHit
@@ -61,7 +63,12 @@ def keyword_candidates(db: Session, q: str, filters: InvoiceFilters) -> list[Can
 
 def semantic_candidates(db: Session, q: str, filters: InvoiceFilters) -> list[Candidate]:
     """Nearest invoices by cosine distance; hits farther than SEMANTIC_MAX_DISTANCE are dropped (SPEC 9)."""
-    distance = Invoice.embedding.cosine_distance(embed_query(q))
+    try:
+        vector = embed_query(q)
+    except ProcessingError as error:  # embedding API down: hybrid search still has its keyword results
+        log.warning("semantic_search_unavailable", code=error.code)
+        return []
+    distance = Invoice.embedding.cosine_distance(vector)
     stmt = (
         apply_filters(select(Invoice.id, distance.label("distance")).where(Invoice.embedding.is_not(None)), filters)
         .order_by(distance)

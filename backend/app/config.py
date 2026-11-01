@@ -2,7 +2,7 @@
 
 from functools import lru_cache
 
-from pydantic import Field
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -44,12 +44,28 @@ class Settings(BaseSettings):
     OCR_DPI: int = 300
     EMBEDDING_MODEL: str = "BAAI/bge-small-en-v1.5"
     EMBEDDING_CACHE_DIR: str = "/models"
+    # local = fastembed in-process (about 200 MB of memory); api = the LLM provider's /embeddings (small hosts)
+    EMBEDDING_PROVIDER: str = "local"
+    EMBEDDING_API_MODEL: str = "gemini-embedding-2"
 
     # validation
     REVIEW_CONFIDENCE: float = 0.6
 
     # celery
     CELERY_TASK_ALWAYS_EAGER: bool = False
+
+    # small hosts: run jobs in the API process and keep originals in Postgres (disk may be wiped)
+    WORKER_MODE: str = "celery"  # celery | inline
+    STORAGE_BACKEND: str = "disk"  # disk | database
+
+    @field_validator("DATABASE_URL")
+    @classmethod
+    def _psycopg_driver(cls, url: str) -> str:
+        """Accept connection strings as hosted Postgres providers show them (postgres://, postgresql://)."""
+        for prefix in ("postgres://", "postgresql://"):
+            if url.startswith(prefix):
+                return "postgresql+psycopg://" + url[len(prefix) :]
+        return url
 
     @property
     def groq_models(self) -> list[str]:

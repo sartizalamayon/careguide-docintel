@@ -611,3 +611,12 @@ Added at the author's request after the main build (see `DECISIONS_LOG.md`).
 - **Storage:** migration `0002` adds `documents.uploaded_by` and `user_llm_keys` (key encrypted with Fernet, key from `CREDENTIALS_SECRET` or `API_KEY`).
 - **Processing:** `llm.client_for(uploaded_by)` returns a client whose providers are the user's Groq model first, then the server's `LLM_MODEL` and `LLM_FALLBACK_MODEL`. Without a saved key it is the normal client.
 - **Settings:** `GROQ_BASE_URL`, `GROQ_MODELS` (offered models), `CREDENTIALS_SECRET`; web: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`.
+
+## Addendum (2026-11-01): small-host mode for free hosting
+
+For a single 512 MB container (Render free; see `docs/DEPLOYMENT.md`, `render.yaml`). Defaults keep the original behaviour.
+
+- `WORKER_MODE=celery|inline` (default `celery`). `inline`: `app/jobs.py` runs jobs in one background thread of the API process with the Celery task's retry policy (30 s, 60 s, 120 s, then fail); unfinished documents are queued again at startup; `/health` reports `workers=1` and does not need Redis.
+- `STORAGE_BACKEND=disk|database` (default `disk`). `database`: originals are also stored in `stored_files` (migration `0003`); `open_path()` writes a missing file back from Postgres.
+- `EMBEDDING_PROVIDER=local|api` (default `local`). `api`: the LLM provider's `/embeddings` with `EMBEDDING_API_MODEL` (default `gemini-embedding-2`) at 384 dimensions, normalised. A database must use one provider only. If the API is down, semantic search returns no candidates and hybrid search keeps its keyword results.
+- `DATABASE_URL` accepts `postgres://` and `postgresql://` and adds the psycopg driver.

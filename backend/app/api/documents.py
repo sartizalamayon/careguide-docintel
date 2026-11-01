@@ -4,12 +4,14 @@ from __future__ import annotations
 
 import uuid
 from collections.abc import Sequence
+from pathlib import Path
 
 from fastapi import APIRouter, Depends, File, Query, Response, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, selectinload
 
+from app import jobs
 from app.api.common import PageParams, invoice_summary, page_params, paginate
 from app.config import get_settings
 from app.db import get_db
@@ -42,8 +44,7 @@ from app.schemas import (
     UploadResponse,
 )
 from app.security import current_user, require_api_key
-from app.storage import FileTooLargeError, discard, move_into_storage, open_path, stream_to_temp
-from app.worker import process_document as enqueue_document
+from app.storage import FileTooLargeError, discard, keep_in_database, move_into_storage, open_path, stream_to_temp
 
 router = APIRouter(prefix="/documents", tags=["documents"], dependencies=[Depends(require_api_key)])
 
@@ -166,10 +167,12 @@ def upload_documents(
         new_docs.append(doc)
 
     db.commit()
+    for doc in new_docs:
+        keep_in_database(doc.id, Path(doc.storage_path))
 
     for doc in new_docs:
         try:
-            enqueue_document.delay(str(doc.id))
+            jobs.enqueue(str(doc.id))
         except Exception as e:  # noqa: BLE001 - broker problems must not lose the upload
             log.error("enqueue_failed", document_id=str(doc.id), error=type(e).__name__)
             doc.status = "failed"
@@ -335,7 +338,7 @@ def _enqueue(db: Session, doc: Document, from_stage: str) -> None:
     db.add(ProcessingEvent(document_id=doc.id, event="reprocess_requested", data={"from_stage": from_stage}))
     db.commit()
     try:
-        enqueue_document.delay(str(doc.id), from_stage)
+        jobs.enqueue(str(doc.id), from_stage)
     except Exception as error:  # noqa: BLE001 - the document stays failed and can be retried
         log.error("enqueue_failed", document_id=str(doc.id), error=type(error).__name__)
         doc.status = "failed"

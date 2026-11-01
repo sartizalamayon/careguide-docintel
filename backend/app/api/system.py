@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import func, select, text
 from sqlalchemy.orm import Session
 
+from app import jobs
 from app.config import get_settings
 from app.db import get_db
 from app.log import log
@@ -15,6 +16,8 @@ router = APIRouter(tags=["system"])
 
 
 def _worker_count() -> int | None:
+    if jobs.inline():
+        return 1
     from app.worker import celery_app
 
     try:
@@ -33,6 +36,8 @@ def health(db: Session = Depends(get_db)) -> Health:
         db_ok = True
     except Exception as e:  # noqa: BLE001
         log.warning("health_db_failed", error=type(e).__name__)
+    if jobs.inline():  # no Redis in inline mode: jobs run inside this process
+        return Health(status="ok" if db_ok else "degraded", db=db_ok, redis=False, workers=_worker_count())
     try:
         import redis
 
